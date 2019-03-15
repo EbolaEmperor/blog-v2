@@ -89,6 +89,52 @@
 </article>
 
   
+    <article id="post-noi2019_modal38_graph" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/08/noi2019_modal38_graph/">【NOI2019模拟赛（三十八）】A. 图</a>
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/08/noi2019_modal38_graph/" class="article-date">
+  <time datetime="2019-03-07T16:00:00.000Z" itemprop="datePublished">2019-03-08</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分图/">二分图</a></li></ul>
+
+  </div>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>给定一个无向连通图，你需要在以下两个任务中任选一个完成</p>
+<ol>
+<li>用$4$种颜色将图染色，使得相邻两点不同色</li>
+<li>找一个奇环，使得删去环上所有边后，图仍然连通</li>
+</ol>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/08/noi2019_modal38_graph/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+  
     <article id="post-noi2019_modal38_sequence" class="article global-container article-type-post" itemscope itemprop="blogPost">
   
     <header class="article-header">
@@ -140,52 +186,6 @@
 </article>
 
   
-    <article id="post-noi2019_modal38_graph" class="article global-container article-type-post" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/08/noi2019_modal38_graph/">【NOI2019模拟赛（三十八）】A. 图</a>
-    </h1>
-  
-
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/03/08/noi2019_modal38_graph/" class="article-date">
-  <time datetime="2019-03-07T16:00:00.000Z" itemprop="datePublished">2019-03-08</time>
-</a>
-    
-    
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分图/">二分图</a></li></ul>
-
-  </div>
-  
-
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>给定一个无向连通图，你需要在以下两个任务中任选一个完成</p>
-<ol>
-<li>用$4$种颜色将图染色，使得相邻两点不同色</li>
-<li>找一个奇环，使得删去环上所有边后，图仍然连通</li>
-</ol>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/08/noi2019_modal38_graph/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    
-  </div>
-  
-  
-</article>
-
-  
     <article id="post-noi2019_modal38_walk" class="article global-container article-type-post" itemscope itemprop="blogPost">
   
     <header class="article-header">
@@ -216,14 +216,53 @@
         <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>数轴上$[1,n]$位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第$i$个餐馆会吃$a_i$克饭</p>
 <p>移动过程需要消耗能量，假如你已经吃了$c$克饭，然后要移动$k$步，那你要消耗$(c+1)k的能量$</p>
 <p>你现在位于$0$处，并且拥有$m$的初始能量，请问你最多能吃多少饭，你最后需要回到$0$处</p>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>没有人会傻乎乎地吃一顿然后继续往前走吧。肯定是先选好，然后直奔选了的最后那个餐馆吃，然后边回边吃别的餐馆</p>
-<p>设$f_{i,j}$表示没有吃餐馆$[1,i)$，在餐馆$[i,n]$中一共吃了$j$克饭，需要花费的最小能量是多少</p>
-<p>考虑$i$号餐馆是否吃饭，则有转移：$f_{i,j}=\max(f_{i+1,j},f_{i+1,j-a_i}+ia_i)$</p>
-<p>至于初值，就考虑直奔$i$号餐馆，吃完滚蛋的那种：$f_{i,a_i}=2i+ia_ia$</p>
-<p>第一维显然可以压掉。一种方法是用滚动数组。还有更好的方法，就干脆从后往前枚举$j$，第一维可以直接丢掉</p>
-<p>若$ij&gt;m$，那么根据能量消耗的定义，你显然回不去了，因此，只需枚举$j\in[0,m/i]$。由于$\sum\limits_{i=1}^n\frac{m}{i}=m\ln n$，故复杂度为$O(m\log n)$</p>
-<p>本题的难点主要在于dp状态的设计，真的很妙</p>
-<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CPP"><figure class="iseeu highlight /cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1000010</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,a[N];</span><br><span class="line">LL f[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">upmin</span><span class="params">(LL &amp;x,<span class="keyword">const</span> LL &amp;y)</span></span>&#123;<span class="keyword">if</span>(y&lt;x) x=y;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="built_in">scanf</span>(<span class="string">"%d"</span>,a+i);</span><br><span class="line">    <span class="built_in">memset</span>(f,<span class="number">0x3f</span>,<span class="keyword">sizeof</span>(f));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n;i&gt;=<span class="number">1</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=m/i;j&gt;=a[i];j--)</span><br><span class="line">            upmin(f[j],f[j-a[i]]+(LL)i*a[i]);</span><br><span class="line">        upmin(f[a[i]],i+i+(LL)i*a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    f[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">        <span class="keyword">if</span>(f[i]&lt;=m) <span class="keyword">return</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,i),<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/08/noi2019_modal38_walk/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+  
+    <article id="post-noi2019_modal37_diameter" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/07/noi2019_modal37_diameter/">【NOI2019模拟赛（三十七）】A. 直径</a>
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/07/noi2019_modal37_diameter/" class="article-date">
+  <time datetime="2019-03-06T16:00:00.000Z" itemprop="datePublished">2019-03-07</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/构造题/">构造题</a></li></ul>
+
+  </div>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>构造一个有$k$条直径的树，边有边权，$k\leq5\times10^6$，最多使用$5000$个点</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/07/noi2019_modal37_diameter/#more">阅读全文</a>
+          </p>
+        
       
     </div>
     
@@ -267,48 +306,6 @@
         
           <p class="article-more-link">
             <a href="/2019/03/07/noi2019_modal37_price/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    
-  </div>
-  
-  
-</article>
-
-  
-    <article id="post-noi2019_modal37_diameter" class="article global-container article-type-post" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/07/noi2019_modal37_diameter/">【NOI2019模拟赛（三十七）】A. 直径</a>
-    </h1>
-  
-
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/03/07/noi2019_modal37_diameter/" class="article-date">
-  <time datetime="2019-03-06T16:00:00.000Z" itemprop="datePublished">2019-03-07</time>
-</a>
-    
-    
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/构造题/">构造题</a></li></ul>
-
-  </div>
-  
-
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>构造一个有$k$条直径的树，边有边权，$k\leq5\times10^6$，最多使用$5000$个点</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/07/noi2019_modal37_diameter/#more">阅读全文</a>
           </p>
         
       
@@ -557,11 +554,11 @@
           </li>
         
           <li>
-            <a href="/2019/03/08/noi2019_modal38_sequence/">【NOI2019模拟赛（三十八）】B. 数列</a>
+            <a href="/2019/03/08/noi2019_modal38_graph/">【NOI2019模拟赛（三十八）】A. 图</a>
           </li>
         
           <li>
-            <a href="/2019/03/08/noi2019_modal38_graph/">【NOI2019模拟赛（三十八）】A. 图</a>
+            <a href="/2019/03/08/noi2019_modal38_sequence/">【NOI2019模拟赛（三十八）】B. 数列</a>
           </li>
         
           <li>
@@ -569,7 +566,7 @@
           </li>
         
           <li>
-            <a href="/2019/03/07/noi2019_modal37_price/">【NOI2019模拟赛（三十七）】B. 定价</a>
+            <a href="/2019/03/07/noi2019_modal37_diameter/">【NOI2019模拟赛（三十七）】A. 直径</a>
           </li>
         
       </ul>

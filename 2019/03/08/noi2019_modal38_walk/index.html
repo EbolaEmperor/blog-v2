@@ -10,18 +10,18 @@
   
   
   
-  <meta name="description" content="题意简述数轴上$[1,n]$位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第$i$个餐馆会吃$a_i$克饭 移动过程需要消耗能量，假如你已经吃了$c$克饭，然后要移动$k$步，那你要消耗$(c+1)k的能量$ 你现在位于$0$处，并且拥有$m$的初始能量，请问你最多能吃多少饭，你最后需要回到$0$处 题解没有人会傻乎乎地吃一顿然后继续往前走吧。肯定是先选好，然后直奔选了的最后">
+  <meta name="description" content="题意简述数轴上$[1,n]$位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第$i$个餐馆会吃$a_i$克饭 移动过程需要消耗能量，假如你已经吃了$c$克饭，然后要移动$k$步，那你要消耗$(c+1)k的能量$ 你现在位于$0$处，并且拥有$m$的初始能量，请问你最多能吃多少饭，你最后需要回到$0$处">
 <meta name="keywords" content="动态规划(DP)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【NOI2019模拟赛（三十八）】C. 走路">
 <meta property="og:url" content="http://www.ebola.pro/2019/03/08/noi2019_modal38_walk/index.html">
 <meta property="og:site_name" content="Ebola的博客">
-<meta property="og:description" content="题意简述数轴上$[1,n]$位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第$i$个餐馆会吃$a_i$克饭 移动过程需要消耗能量，假如你已经吃了$c$克饭，然后要移动$k$步，那你要消耗$(c+1)k的能量$ 你现在位于$0$处，并且拥有$m$的初始能量，请问你最多能吃多少饭，你最后需要回到$0$处 题解没有人会傻乎乎地吃一顿然后继续往前走吧。肯定是先选好，然后直奔选了的最后">
+<meta property="og:description" content="题意简述数轴上$[1,n]$位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第$i$个餐馆会吃$a_i$克饭 移动过程需要消耗能量，假如你已经吃了$c$克饭，然后要移动$k$步，那你要消耗$(c+1)k的能量$ 你现在位于$0$处，并且拥有$m$的初始能量，请问你最多能吃多少饭，你最后需要回到$0$处">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-15T06:04:05.152Z">
+<meta property="og:updated_time" content="2019-03-15T06:10:05.135Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【NOI2019模拟赛（三十八）】C. 走路">
-<meta name="twitter:description" content="题意简述数轴上$[1,n]$位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第$i$个餐馆会吃$a_i$克饭 移动过程需要消耗能量，假如你已经吃了$c$克饭，然后要移动$k$步，那你要消耗$(c+1)k的能量$ 你现在位于$0$处，并且拥有$m$的初始能量，请问你最多能吃多少饭，你最后需要回到$0$处 题解没有人会傻乎乎地吃一顿然后继续往前走吧。肯定是先选好，然后直奔选了的最后">
+<meta name="twitter:description" content="题意简述数轴上$[1,n]$位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第$i$个餐馆会吃$a_i$克饭 移动过程需要消耗能量，假如你已经吃了$c$克饭，然后要移动$k$步，那你要消耗$(c+1)k的能量$ 你现在位于$0$处，并且拥有$m$的初始能量，请问你最多能吃多少饭，你最后需要回到$0$处">
   
     <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
   
@@ -88,6 +88,7 @@
         <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>数轴上$[1,n]$位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第$i$个餐馆会吃$a_i$克饭</p>
 <p>移动过程需要消耗能量，假如你已经吃了$c$克饭，然后要移动$k$步，那你要消耗$(c+1)k的能量$</p>
 <p>你现在位于$0$处，并且拥有$m$的初始能量，请问你最多能吃多少饭，你最后需要回到$0$处</p>
+<a id="more"></a>
 <h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>没有人会傻乎乎地吃一顿然后继续往前走吧。肯定是先选好，然后直奔选了的最后那个餐馆吃，然后边回边吃别的餐馆</p>
 <p>设$f_{i,j}$表示没有吃餐馆$[1,i)$，在餐馆$[i,n]$中一共吃了$j$克饭，需要花费的最小能量是多少</p>
 <p>考虑$i$号餐馆是否吃饭，则有转移：$f_{i,j}=\max(f_{i+1,j},f_{i+1,j-a_i}+ia_i)$</p>
@@ -109,11 +110,11 @@
 <nav id="article-nav">
   <div class="article-nav-block">
     
-      <a href="/2019/03/08/noi2019_modal38_graph/" id="article-nav-newer" class="article-nav-link-wrap">
+      <a href="/2019/03/08/noi2019_modal38_sequence/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption"></strong>
         <div class="article-nav-title">
           
-            【NOI2019模拟赛（三十八）】A. 图
+            【NOI2019模拟赛（三十八）】B. 数列
           
         </div>
       </a>
@@ -121,8 +122,8 @@
   </div>
   <div class="article-nav-block">
     
-      <a href="/2019/03/07/noi2019_modal37_price/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">【NOI2019模拟赛（三十七）】B. 定价</div>
+      <a href="/2019/03/07/noi2019_modal37_diameter/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【NOI2019模拟赛（三十七）】A. 直径</div>
         <strong class="article-nav-caption"></strong>
       </a>
     
@@ -209,11 +210,11 @@ gitment.render('gitmentContainer')
           </li>
         
           <li>
-            <a href="/2019/03/08/noi2019_modal38_sequence/">【NOI2019模拟赛（三十八）】B. 数列</a>
+            <a href="/2019/03/08/noi2019_modal38_graph/">【NOI2019模拟赛（三十八）】A. 图</a>
           </li>
         
           <li>
-            <a href="/2019/03/08/noi2019_modal38_graph/">【NOI2019模拟赛（三十八）】A. 图</a>
+            <a href="/2019/03/08/noi2019_modal38_sequence/">【NOI2019模拟赛（三十八）】B. 数列</a>
           </li>
         
           <li>
@@ -221,7 +222,7 @@ gitment.render('gitmentContainer')
           </li>
         
           <li>
-            <a href="/2019/03/07/noi2019_modal37_price/">【NOI2019模拟赛（三十七）】B. 定价</a>
+            <a href="/2019/03/07/noi2019_modal37_diameter/">【NOI2019模拟赛（三十七）】A. 直径</a>
           </li>
         
       </ul>
