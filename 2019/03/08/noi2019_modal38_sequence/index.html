@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>【NOI2019模拟赛（三十八）】B. 数列 | Ebola的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="题意简述本题是交互题 交互库会生成$n$个数$v_{0…n-1}$，满足$v_i\in[0,10^a)$ 你可以调用操作prod(q)，其中$q$是一个长为$n$的数组，该操作返回$\sum\limits_{i=0}^{n-1}v_iq_i$，你传入的数组$q$应满足$q_i\in[0,10^b)$ 你最多调用该操作$10$次  子任务一：$n=10,\quad a=30,\quad b=30$">
+<meta name="keywords" content="交互题,高精度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NOI2019模拟赛（三十八）】B. 数列">
+<meta property="og:url" content="http://www.ebola.pro/2019/03/08/noi2019_modal38_sequence/index.html">
+<meta property="og:site_name" content="Ebola的博客">
+<meta property="og:description" content="题意简述本题是交互题 交互库会生成$n$个数$v_{0…n-1}$，满足$v_i\in[0,10^a)$ 你可以调用操作prod(q)，其中$q$是一个长为$n$的数组，该操作返回$\sum\limits_{i=0}^{n-1}v_iq_i$，你传入的数组$q$应满足$q_i\in[0,10^b)$ 你最多调用该操作$10$次  子任务一：$n=10,\quad a=30,\quad b=30$">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-15T06:02:53.350Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【NOI2019模拟赛（三十八）】B. 数列">
+<meta name="twitter:description" content="题意简述本题是交互题 交互库会生成$n$个数$v_{0…n-1}$，满足$v_i\in[0,10^a)$ 你可以调用操作prod(q)，其中$q$是一个长为$n$的数组，该操作返回$\sum\limits_{i=0}^{n-1}v_iq_i$，你传入的数组$q$应满足$q_i\in[0,10^b)$ 你最多调用该操作$10$次  子任务一：$n=10,\quad a=30,\quad b=30$">
+  
+    <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" title="背景图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-noi2019_modal38_sequence" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      【NOI2019模拟赛（三十八）】B. 数列
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/08/noi2019_modal38_sequence/" class="article-date">
+  <time datetime="2019-03-07T16:00:00.000Z" itemprop="datePublished">2019-03-08</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/交互题/">交互题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>本题是交互题</p>
+<p>交互库会生成$n$个数$v_{0…n-1}$，满足$v_i\in[0,10^a)$</p>
+<p>你可以调用操作<code>prod(q)</code>，其中$q$是一个长为$n$的数组，该操作返回$\sum\limits_{i=0}^{n-1}v_iq_i$，你传入的数组$q$应满足$q_i\in[0,10^b)$</p>
+<p>你最多调用该操作$10$次</p>
+<ul>
+<li>子任务一：$n=10,\quad a=30,\quad b=30$</li>
+<li>子任务二：$n=25,\quad a=2,\quad b=50$</li>
+<li>子任务三：$n=25,\quad a=2,\quad b=5$</li>
+<li>子任务四：$n=16,\quad a=57,\quad b=50$</li>
+</ul>
+<a id="more"></a>
+<h3 id="子任务一"><a href="#子任务一" class="headerlink" title="子任务一"></a>子任务一</h3><p>非常简单，$10$次询问，每次询问求出一个值</p>
+<h3 id="子任务二、三"><a href="#子任务二、三" class="headerlink" title="子任务二、三"></a>子任务二、三</h3><p>以$100$为底，即$q=\{0,0,…,1,100,10000,…,0,0\}$，每次询问出$3$个数，$9$次询问完成</p>
+<h3 id="子任务四"><a href="#子任务四" class="headerlink" title="子任务四"></a>子任务四</h3><p>相邻两个为一组，进行$8$次形如$q=\{0,0,…,1,10^{49},…,0,0\}$的询问，记作“询问一”</p>
+<p>这样，对于每组数，我们就知道了第一个数的后$49$位，前$8$位未知</p>
+<p>于是我们再进行一次形如$q=\{0,1,0,10^8,0,10^{16},…\}$的询问，记作“询问二”</p>
+<p>于是，对于第一组数，我们知道了第二个数的后$8$位，将这组数询问一的结果除去这$8$位的贡献，后$57$位就是第一个数了，然后再减一下就能得到第二个数</p>
+<p>然后再把询问二的结果减去第二个数的贡献，就得到了第四个数的后$8$位，再做同样的操作得出第三个、第四个数，后面的也是以此类推</p>
+<h3 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h3><p>如果本题支持Python的话，我可以把代码写到1.5K以内，然而脑子卡屎的出题人硬是要用c++的string，而且还反人类地从高位到低位存……4.7K的代码虽然不算很长，但看上去是真的很恶心，领略一下吧……</p>
+<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CPP"><figure class="iseeu highlight /cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"sequence.hpp"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; gao1(<span class="keyword">int</span> n=<span class="number">10</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans,ask;</span><br><span class="line">    ans.resize(n);ask.resize(n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            ask[j]=(i==j)?<span class="string">"1"</span>:<span class="string">"0"</span>;</span><br><span class="line">        ans[i]=prod(ask);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">numtostr</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> <span class="string">"0"</span>;</span><br><span class="line">    <span class="built_in">string</span> res;</span><br><span class="line">    <span class="keyword">while</span>(n) res+=(n%<span class="number">10</span>+<span class="string">'0'</span>),n/=<span class="number">10</span>;</span><br><span class="line">    reverse(res.begin(),res.end());</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; gao2(<span class="keyword">int</span> n=<span class="number">25</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans,ask;</span><br><span class="line">    ans.resize(n);ask.resize(n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">25</span>;j++) ask[j]=<span class="string">"0"</span>;</span><br><span class="line">        ask[<span class="number">3</span>*i]=<span class="string">"10000"</span>;</span><br><span class="line">        ask[<span class="number">3</span>*i+<span class="number">1</span>]=<span class="string">"100"</span>;</span><br><span class="line">        ask[<span class="number">3</span>*i+<span class="number">2</span>]=<span class="string">"1"</span>;</span><br><span class="line">        <span class="built_in">string</span> tmp=prod(ask);</span><br><span class="line">        <span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;tmp.size();j++)</span><br><span class="line">            num=num*<span class="number">10</span>+(tmp[j]-<span class="string">'0'</span>);</span><br><span class="line">        ans[<span class="number">3</span>*i+<span class="number">2</span>]=numtostr(num%<span class="number">100</span>);</span><br><span class="line">        ans[<span class="number">3</span>*i+<span class="number">1</span>]=numtostr(num/<span class="number">100</span>%<span class="number">100</span>);</span><br><span class="line">        ans[<span class="number">3</span>*i]=numtostr(num/<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">25</span>;j++) ask[j]=<span class="string">"0"</span>;</span><br><span class="line">    ask[<span class="number">24</span>]=<span class="string">"1"</span>;</span><br><span class="line">    ans[<span class="number">24</span>]=prod(ask);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">Mns</span><span class="params">(<span class="built_in">string</span> a,<span class="built_in">string</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    reverse(a.begin(),a.end());</span><br><span class="line">    reverse(b.begin(),b.end());</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res(a.size());</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.size();i++) res[i]=(a[i]-<span class="string">'0'</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;b.size();i++) res[i]-=(b[i]-<span class="string">'0'</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;res.size();i++)</span><br><span class="line">        <span class="keyword">if</span>(res[i]&lt;<span class="number">0</span>) res[i]+=<span class="number">10</span>,res[i+<span class="number">1</span>]--;</span><br><span class="line">    <span class="built_in">string</span> ress;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> x : res) ress+=(x+<span class="string">'0'</span>);</span><br><span class="line">    reverse(ress.begin(),ress.end());</span><br><span class="line">    <span class="keyword">return</span> ress;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">Mul</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> a,<span class="built_in">std</span>::<span class="built_in">string</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::reverse(a.begin(),a.end());</span><br><span class="line">	<span class="built_in">std</span>::reverse(b.begin(),b.end());</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v(a.size()+b.size()+<span class="number">30</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(<span class="keyword">int</span>)a.size();++i)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;(<span class="keyword">int</span>)b.size();++j)</span><br><span class="line">			v[i+j]+=(a[i]-<span class="string">'0'</span>)*(b[j]-<span class="string">'0'</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i+<span class="number">1</span>&lt;(<span class="keyword">int</span>)v.size();++i)</span><br><span class="line">		v[i+<span class="number">1</span>]+=v[i]/<span class="number">10</span>,v[i]%=<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">while</span>(v.size()&amp;&amp;!v.back()) v.pop_back();</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> s;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(<span class="keyword">int</span>)v.size();++i)</span><br><span class="line">		s.push_back(v[i]+<span class="number">48</span>);</span><br><span class="line">	reverse(s.begin(),s.end());</span><br><span class="line">	<span class="keyword">if</span>(s==<span class="string">""</span>) s=<span class="string">"0"</span>; <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delzero</span><span class="params">(<span class="built_in">string</span> &amp;s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> p=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(s[p]==<span class="string">'0'</span>) p++;</span><br><span class="line">    s=s.substr(p,s.size()-p);</span><br><span class="line">    <span class="keyword">if</span>(s.empty()) s=<span class="string">"0"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; gao3(<span class="keyword">int</span> n=<span class="number">16</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">string</span> _e49=<span class="string">"10000000000000000000000000000000000000000000000000"</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ask,g,ans;</span><br><span class="line">    ans.resize(n);ask.resize(n);g.resize(<span class="number">8</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;c : ask) c=<span class="string">"0"</span>;</span><br><span class="line">        ask[<span class="number">2</span>*i]=<span class="string">"1"</span>;</span><br><span class="line">        ask[<span class="number">2</span>*i+<span class="number">1</span>]=_e49;</span><br><span class="line">        g[i]=prod(ask);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;c : ask) c=<span class="string">"0"</span>;</span><br><span class="line">    ask[<span class="number">1</span>]=<span class="string">"1"</span>;ask[<span class="number">3</span>]=<span class="string">"100000000"</span>;ask[<span class="number">5</span>]=<span class="string">"10000000000000000"</span>;ask[<span class="number">7</span>]=<span class="string">"1000000000000000000000000"</span>;</span><br><span class="line">    <span class="built_in">string</span> f1=prod(ask),h;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">8</span>;j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>((<span class="keyword">int</span>)f1.size()<span class="number">-1</span>-j&lt;<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        h+=f1[f1.size()<span class="number">-1</span>-j];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(h.empty()) h=<span class="string">"0"</span>;</span><br><span class="line">    reverse(h.begin(),h.end());</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> tmp=Mns(g[i],Mul(h,_e49));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">57</span>;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>((<span class="keyword">int</span>)tmp.size()<span class="number">-1</span>-j&lt;<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            ans[<span class="number">2</span>*i]+=tmp[tmp.size()<span class="number">-1</span>-j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ans[<span class="number">2</span>*i].empty()) ans[<span class="number">2</span>*i]=<span class="string">"0"</span>;</span><br><span class="line">        reverse(ans[<span class="number">2</span>*i].begin(),ans[<span class="number">2</span>*i].end());</span><br><span class="line">        tmp=Mns(g[i],ans[<span class="number">2</span>*i]);</span><br><span class="line">        ans[<span class="number">2</span>*i+<span class="number">1</span>]=tmp.substr(<span class="number">0</span>,tmp.size()<span class="number">-49</span>);</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">3</span>) <span class="keyword">break</span>;</span><br><span class="line">        f1=Mns(f1,ans[<span class="number">2</span>*i+<span class="number">1</span>]);</span><br><span class="line">        f1=f1.substr(<span class="number">0</span>,f1.size()<span class="number">-8</span>);</span><br><span class="line">        h=<span class="built_in">string</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">8</span>;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>((<span class="keyword">int</span>)f1.size()<span class="number">-1</span>-j&lt;<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            h+=f1[f1.size()<span class="number">-1</span>-j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(h.empty()) h=<span class="string">"0"</span>;</span><br><span class="line">        reverse(h.begin(),h.end());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;c : ask) c=<span class="string">"0"</span>;</span><br><span class="line">    ask[<span class="number">9</span>]=<span class="string">"1"</span>;ask[<span class="number">11</span>]=<span class="string">"100000000"</span>;ask[<span class="number">13</span>]=<span class="string">"10000000000000000"</span>;ask[<span class="number">15</span>]=<span class="string">"1000000000000000000000000"</span>;</span><br><span class="line">    f1=prod(ask);h=<span class="built_in">string</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">8</span>;j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>((<span class="keyword">int</span>)f1.size()<span class="number">-1</span>-j&lt;<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        h+=f1[f1.size()<span class="number">-1</span>-j];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(h.empty()) h=<span class="string">"0"</span>;</span><br><span class="line">    reverse(h.begin(),h.end());</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">4</span>;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> tmp=Mns(g[i],Mul(h,_e49));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">57</span>;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>((<span class="keyword">int</span>)tmp.size()<span class="number">-1</span>-j&lt;<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            ans[<span class="number">2</span>*i]+=tmp[tmp.size()<span class="number">-1</span>-j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ans[<span class="number">2</span>*i].empty()) ans[<span class="number">2</span>*i]=<span class="string">"0"</span>;</span><br><span class="line">        reverse(ans[<span class="number">2</span>*i].begin(),ans[<span class="number">2</span>*i].end());</span><br><span class="line">        tmp=Mns(g[i],ans[<span class="number">2</span>*i]);</span><br><span class="line">        ans[<span class="number">2</span>*i+<span class="number">1</span>]=tmp.substr(<span class="number">0</span>,tmp.size()<span class="number">-49</span>);</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">7</span>) <span class="keyword">break</span>;</span><br><span class="line">        f1=Mns(f1,ans[<span class="number">2</span>*i+<span class="number">1</span>]);</span><br><span class="line">        f1=f1.substr(<span class="number">0</span>,f1.size()<span class="number">-8</span>);</span><br><span class="line">        h=<span class="built_in">string</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">8</span>;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>((<span class="keyword">int</span>)f1.size()<span class="number">-1</span>-j&lt;<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            h+=f1[f1.size()<span class="number">-1</span>-j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(h.empty()) h=<span class="string">"0"</span>;</span><br><span class="line">        reverse(h.begin(),h.end());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;s : ans) delzero(s);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; guess(<span class="keyword">int</span> n,<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(t==<span class="number">1</span>) <span class="keyword">return</span> gao1();</span><br><span class="line">	<span class="keyword">if</span>(t==<span class="number">2</span>||t==<span class="number">3</span>) <span class="keyword">return</span> gao2();</span><br><span class="line">    <span class="keyword">return</span> gao3();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/08/noi2019_modal38_graph/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            【NOI2019模拟赛（三十八）】A. 图
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/08/noi2019_modal38_walk/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【NOI2019模拟赛（三十八）】C. 走路</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/logo.png" title="头像来自网络">
+    <h3 class="avatar-name">
+      
+        Ebola
+      
+    </h3>
+    <p class="avatar-slogan">
+      万物皆可持久化
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图/">二分图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图匹配/">二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互题/">交互题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划-DP/">动态规划(DP)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字典树-Trie/">字典树(Trie)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM/">序列自动机(SeAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造题/">构造题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT/">树状数组(BIT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/二分图/" style="font-size: 10px;">二分图</a> <a href="/tags/二分图匹配/" style="font-size: 10px;">二分图匹配</a> <a href="/tags/交互题/" style="font-size: 10px;">交互题</a> <a href="/tags/动态规划-DP/" style="font-size: 20px;">动态规划(DP)</a> <a href="/tags/后缀自动机-SAM/" style="font-size: 10px;">后缀自动机(SAM)</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/字典树-Trie/" style="font-size: 10px;">字典树(Trie)</a> <a href="/tags/序列自动机-SeAM/" style="font-size: 10px;">序列自动机(SeAM)</a> <a href="/tags/暴力/" style="font-size: 10px;">暴力</a> <a href="/tags/构造题/" style="font-size: 10px;">构造题</a> <a href="/tags/树状数组-BIT/" style="font-size: 10px;">树状数组(BIT)</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a> <a href="/tags/高精度/" style="font-size: 10px;">高精度</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/08/noi2019_modal38_graph/">【NOI2019模拟赛（三十八）】A. 图</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/08/noi2019_modal38_sequence/">【NOI2019模拟赛（三十八）】B. 数列</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/08/noi2019_modal38_walk/">【NOI2019模拟赛（三十八）】C. 走路</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/noi2019_modal37_diameter/">【NOI2019模拟赛（三十七）】A. 直径</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 Ebola &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+</body>
+</html>
