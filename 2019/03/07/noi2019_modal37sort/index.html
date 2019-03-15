@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>【NOI2019模拟赛（三十七）】C. 排序 | Ebola的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="题面 数据范围：n≤2e6">
+<meta name="keywords" content="堆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NOI2019模拟赛（三十七）】C. 排序">
+<meta property="og:url" content="http://www.ebola.pro/2019/03/07/noi2019_modal37sort/index.html">
+<meta property="og:site_name" content="Ebola的博客">
+<meta property="og:description" content="题面 数据范围：n≤2e6">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.ebola.pro/2019/03/07/noi2019_modal37sort/images/noi2019_modal37_sort.png">
+<meta property="og:updated_time" content="2019-03-15T05:12:38.797Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【NOI2019模拟赛（三十七）】C. 排序">
+<meta name="twitter:description" content="题面 数据范围：n≤2e6">
+<meta name="twitter:image" content="http://www.ebola.pro/2019/03/07/noi2019_modal37sort/images/noi2019_modal37_sort.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" title="背景图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-noi2019_modal37sort" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      【NOI2019模拟赛（三十七）】C. 排序
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/07/noi2019_modal37sort/" class="article-date">
+  <time datetime="2019-03-06T16:00:00.000Z" itemprop="datePublished">2019-03-07</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/堆/">堆</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p><img src="images/noi2019_modal37_sort.png" alt></p>
+<p>数据范围：n≤2e6</p>
+<a id="more"></a>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>考虑完整执行一次外层循环发生的变化。第i次外层循环，会找到从位置i的值开始，值不断下降的一个序列，然后将这个序列循环右移一位</p>
+<p>假设外层循环共执行k轮，位置p上的数m是前k+1个数中最大的。那么，前p-1轮循环都不会影响m的位置，从第p次循环开始，m每次往右移动1位，最后移动到位置k+1</p>
+<p>假设x是前k+2个数中除m以外最大的。那么它移动时，遇到m会移动两格来跨过它，其它时候都是移动一格，最后会移动到k+2位置。类似的，还可以推广到k+3位置、k+4位置</p>
+<p>那么，前k个位置显然就是排好序的1到k。k+1到n位置，用一个堆来维护，每次将最大值放到k+i位置，然后弹出，再将k+i+1位置的初始值入堆即可</p>
+<p>最后那些零散的步数暴力模拟内层循环即可</p>
+<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CPP"><figure class="iseeu highlight /cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">namespace</span> IO</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> S=(<span class="number">1</span>&lt;&lt;<span class="number">20</span>)+<span class="number">5</span>;</span><br><span class="line">    <span class="keyword">char</span> buf[S],*H,*T;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">Get</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(H==T) T=(H=buf)+fread(buf,<span class="number">1</span>,S,<span class="built_in">stdin</span>);</span><br><span class="line">        <span class="keyword">if</span>(H==T) <span class="keyword">return</span> <span class="number">-1</span>;<span class="keyword">return</span> *H++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> LL <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        LL x=<span class="number">0</span>;<span class="keyword">char</span> c=Get();</span><br><span class="line">        <span class="keyword">while</span>(!<span class="built_in">isdigit</span>(c)) c=Get();</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">isdigit</span>(c)) x=x*<span class="number">10</span>+c-<span class="string">'0'</span>,c=Get();</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">char</span> obuf[S],*oS=obuf,*oT=oS+S<span class="number">-1</span>,c,qu[<span class="number">55</span>];<span class="keyword">int</span> qr;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">flush</span><span class="params">()</span></span>&#123;fwrite(obuf,<span class="number">1</span>,oS-obuf,<span class="built_in">stdout</span>);oS=obuf;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">putc</span><span class="params">(<span class="keyword">char</span> x)</span></span>&#123;*oS++ =x;<span class="keyword">if</span>(oS==oT) flush();&#125;</span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;<span class="title">inline</span> <span class="title">void</span> <span class="title">print</span>(<span class="title">I</span> <span class="title">x</span>)</span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="keyword">if</span>(!x) putc(<span class="string">'0'</span>);</span><br><span class="line">        <span class="keyword">while</span>(x) qu[++qr]=x%<span class="number">10</span>+<span class="string">'0'</span>,x/=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">while</span>(qr) putc(qu[qr--]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> IO;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">2000010</span>;</span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>&gt; pq;</span><br><span class="line"><span class="keyword">int</span> n,a[N],k=<span class="number">0</span>;</span><br><span class="line">LL cnt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=read();cnt=read();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) a[i]=read();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(cnt&lt;n-i) <span class="keyword">break</span>;</span><br><span class="line">        cnt-=n-i;k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k+<span class="number">1</span>;i++) pq.push(a[i]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=k+<span class="number">1</span>;i&lt;=n;i++) a[i]=pq.top(),pq.pop(),pq.push(a[i+<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++) a[i]=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=k+<span class="number">2</span>;j&lt;=n;j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[j]&lt;a[k+<span class="number">1</span>]) swap(a[j],a[k+<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span>(!--cnt) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) print(a[i]),putc(<span class="string">' '</span>);</span><br><span class="line">    <span class="keyword">return</span> flush(),<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/07/noi2019_modal37price/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            【NOI2019模拟赛（三十七）】B. 定价
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/06/noi2019_modal36_diff/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【NOI2019模拟赛（三十六）】C.不同的缩写</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/logo.png" title="头像来自网络">
+    <h3 class="avatar-name">
+      
+        Ebola
+      
+    </h3>
+    <p class="avatar-slogan">
+      万物皆可持久化
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图匹配/">二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划-DP/">动态规划(DP)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字典树-Trie/">字典树(Trie)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM/">序列自动机(SeAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造题/">构造题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT/">树状数组(BIT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/二分图匹配/" style="font-size: 10px;">二分图匹配</a> <a href="/tags/动态规划-DP/" style="font-size: 10px;">动态规划(DP)</a> <a href="/tags/后缀自动机-SAM/" style="font-size: 10px;">后缀自动机(SAM)</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/字典树-Trie/" style="font-size: 10px;">字典树(Trie)</a> <a href="/tags/序列自动机-SeAM/" style="font-size: 10px;">序列自动机(SeAM)</a> <a href="/tags/暴力/" style="font-size: 10px;">暴力</a> <a href="/tags/构造题/" style="font-size: 10px;">构造题</a> <a href="/tags/树状数组-BIT/" style="font-size: 10px;">树状数组(BIT)</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/noi2019_modal37_diameter/">【NOI2019模拟赛（三十七）】A. 直径</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/noi2019_modal37price/">【NOI2019模拟赛（三十七）】B. 定价</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/noi2019_modal37sort/">【NOI2019模拟赛（三十七）】C. 排序</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/noi2019_modal36_diff/">【NOI2019模拟赛（三十六）】C.不同的缩写</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 Ebola &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

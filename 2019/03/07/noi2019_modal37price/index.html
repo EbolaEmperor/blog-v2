@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>【NOI2019模拟赛（三十七）】B. 定价 | Ebola的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="题意简述有$n$个物品，你需要给它定价，使得总的价格和最小，要求第$i$个物品的价格严格高于第$i-1$个 每个物品价格都会受到约束，一开始要求所有二进制位必须是$0$。之后会进行修改，修改就是约定某个物品价格的某个二进制位可以为$1$，或者把某个物品允许为$1$的某个二进制位改回必须为$0$ 然后要支持询问操作，询问最小价格和，询问不超过$1000$次 总操作次数不超过$5\times10^5$">
+<meta name="keywords" content="离散化,暴力">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NOI2019模拟赛（三十七）】B. 定价">
+<meta property="og:url" content="http://www.ebola.pro/2019/03/07/noi2019_modal37price/index.html">
+<meta property="og:site_name" content="Ebola的博客">
+<meta property="og:description" content="题意简述有$n$个物品，你需要给它定价，使得总的价格和最小，要求第$i$个物品的价格严格高于第$i-1$个 每个物品价格都会受到约束，一开始要求所有二进制位必须是$0$。之后会进行修改，修改就是约定某个物品价格的某个二进制位可以为$1$，或者把某个物品允许为$1$的某个二进制位改回必须为$0$ 然后要支持询问操作，询问最小价格和，询问不超过$1000$次 总操作次数不超过$5\times10^5$">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-15T05:10:36.376Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【NOI2019模拟赛（三十七）】B. 定价">
+<meta name="twitter:description" content="题意简述有$n$个物品，你需要给它定价，使得总的价格和最小，要求第$i$个物品的价格严格高于第$i-1$个 每个物品价格都会受到约束，一开始要求所有二进制位必须是$0$。之后会进行修改，修改就是约定某个物品价格的某个二进制位可以为$1$，或者把某个物品允许为$1$的某个二进制位改回必须为$0$ 然后要支持询问操作，询问最小价格和，询问不超过$1000$次 总操作次数不超过$5\times10^5$">
+  
+    <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" title="背景图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-noi2019_modal37price" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      【NOI2019模拟赛（三十七）】B. 定价
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/07/noi2019_modal37price/" class="article-date">
+  <time datetime="2019-03-06T16:00:00.000Z" itemprop="datePublished">2019-03-07</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/暴力/">暴力</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/离散化/">离散化</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>有$n$个物品，你需要给它定价，使得总的价格和最小，要求第$i$个物品的价格严格高于第$i-1$个</p>
+<p>每个物品价格都会受到约束，一开始要求所有二进制位<strong>必须</strong>是$0$。之后会进行修改，修改就是约定某个物品价格的某个二进制位<strong>可以</strong>为$1$，或者把某个物品允许为$1$的某个二进制位改回必须为$0$</p>
+<p>然后要支持询问操作，询问最小价格和，询问不超过$1000$次</p>
+<p>总操作次数不超过$5\times10^5$，物品数不超过$1000$，二进制位最高为$10^9$位</p>
+<a id="more"></a>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>首先肯定是要把二进制位离散化</p>
+<p>询问就是暴力的$O(q)$，贪心地让每个物品价格都最小就行了。具体方法就是：若$i$号物品第$j$个为$1$的二进制位为$A<em>j$，$i+1$号物品的$A</em>{1\sim k}$二进制位都可以为$1$，但$A<em>{k+1}$二进制位不能为$1$，那么$i+1$号物品的$A</em>{k}+1$到$A_{k+1}$二进制位中就要选最小的那个为$1$</p>
+<p>复杂度$O(q\log q+1000q)$。时限7s，稳。记住，跑得快，不一定赢，不跌跟头，才是成功</p>
+<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CPP"><figure class="iseeu highlight /cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ha=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1010</span>,M=<span class="number">500010</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span><span class="keyword">int</span> opt,r,c;&#125; qry[M];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; num[N],bit[N],allow[N];</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; idx[N];</span><br><span class="line"><span class="keyword">int</span> n,m,q,len[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> &amp;x,<span class="keyword">const</span> <span class="keyword">int</span> &amp;y)</span></span>&#123;x=(x+y&gt;=ha)?(x+y-ha):(x+y);&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(;b;b&gt;&gt;=<span class="number">1</span>,a=<span class="number">1l</span>l*a*a%ha)</span><br><span class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>) ans=<span class="number">1l</span>l*ans*a%ha;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">prework</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sort(num[i].begin(),num[i].end());</span><br><span class="line">        <span class="keyword">int</span> unq=unique(num[i].begin(),num[i].end())-num[i].begin();</span><br><span class="line">        num[i].resize(unq);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : num[i])</span><br><span class="line">        &#123;</span><br><span class="line">            bit[i].emplace_back(Pow(<span class="number">2</span>,x));</span><br><span class="line">            idx[i][x]=len[i]++;</span><br><span class="line">        &#125;</span><br><span class="line">        allow[i].resize(len[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getans</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> lastans[M],must[M];</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>,anslen=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> pos=len[i]<span class="number">-1</span>,id=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=anslen<span class="number">-1</span>;j&gt;=<span class="number">0</span>;j--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(pos&gt;=<span class="number">0</span>&amp;&amp;num[i][pos]&gt;lastans[j]) pos--;</span><br><span class="line">            <span class="keyword">if</span>(pos&lt;<span class="number">0</span>||num[i][pos]!=lastans[j]||!allow[i][pos])&#123;id=j;<span class="keyword">break</span>;&#125;</span><br><span class="line">            must[pos]=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> choose=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len[i];j++)</span><br><span class="line">            <span class="keyword">if</span>((id&lt;<span class="number">0</span>||num[i][j]&gt;lastans[id])&amp;&amp;!must[j]&amp;&amp;allow[i][j])</span><br><span class="line">                &#123;choose=j;must[j]=<span class="number">1</span>;<span class="keyword">break</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(choose&lt;<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">memset</span>(must,<span class="number">0</span>,<span class="keyword">sizeof</span>(must));</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        anslen=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;choose;j++) must[j]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=choose;j&lt;len[i];j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(!must[j]) <span class="keyword">continue</span>;</span><br><span class="line">            lastans[anslen++]=num[i][j];</span><br><span class="line">            add(ans,bit[i][j]);</span><br><span class="line">            must[j]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;n,&amp;m,&amp;q);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=q;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;qry[i].opt);</span><br><span class="line">        <span class="keyword">if</span>(qry[i].opt==<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;qry[i].r,&amp;qry[i].c);</span><br><span class="line">            qry[i].c=m-qry[i].c;</span><br><span class="line">            num[qry[i].r].emplace_back(qry[i].c);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    prework();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=q;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(qry[i].opt==<span class="number">2</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,getans());</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> r=qry[i].r,id=idx[r][qry[i].c];</span><br><span class="line">            allow[r][id]^=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/07/noi2019_modal37_diameter/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            【NOI2019模拟赛（三十七）】A. 直径
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/07/noi2019_modal37sort/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【NOI2019模拟赛（三十七）】C. 排序</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/logo.png" title="头像来自网络">
+    <h3 class="avatar-name">
+      
+        Ebola
+      
+    </h3>
+    <p class="avatar-slogan">
+      万物皆可持久化
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图匹配/">二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划-DP/">动态规划(DP)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字典树-Trie/">字典树(Trie)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM/">序列自动机(SeAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造题/">构造题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT/">树状数组(BIT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/二分图匹配/" style="font-size: 10px;">二分图匹配</a> <a href="/tags/动态规划-DP/" style="font-size: 10px;">动态规划(DP)</a> <a href="/tags/后缀自动机-SAM/" style="font-size: 10px;">后缀自动机(SAM)</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/字典树-Trie/" style="font-size: 10px;">字典树(Trie)</a> <a href="/tags/序列自动机-SeAM/" style="font-size: 10px;">序列自动机(SeAM)</a> <a href="/tags/暴力/" style="font-size: 10px;">暴力</a> <a href="/tags/构造题/" style="font-size: 10px;">构造题</a> <a href="/tags/树状数组-BIT/" style="font-size: 10px;">树状数组(BIT)</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/noi2019_modal37_diameter/">【NOI2019模拟赛（三十七）】A. 直径</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/noi2019_modal37price/">【NOI2019模拟赛（三十七）】B. 定价</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/noi2019_modal37sort/">【NOI2019模拟赛（三十七）】C. 排序</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/noi2019_modal36_diff/">【NOI2019模拟赛（三十六）】C.不同的缩写</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 Ebola &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
