@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>【NOI2019模拟赛（四十）】B. 小H爱染色 | Ebola的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="题目链接：2504. 小H爱染色 注意，本题解为非正解，但简单易懂，非常暴躁，常数好可以通过">
+<meta name="keywords" content="拉格朗日插值,快速数论变换(NTT)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NOI2019模拟赛（四十）】B. 小H爱染色">
+<meta property="og:url" content="http://www.ebola.pro/2019/03/11/noi2019_modal40_color/index.html">
+<meta property="og:site_name" content="Ebola的博客">
+<meta property="og:description" content="题目链接：2504. 小H爱染色 注意，本题解为非正解，但简单易懂，非常暴躁，常数好可以通过">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-15T08:31:25.418Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【NOI2019模拟赛（四十）】B. 小H爱染色">
+<meta name="twitter:description" content="题目链接：2504. 小H爱染色 注意，本题解为非正解，但简单易懂，非常暴躁，常数好可以通过">
+  
+    <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/bg.jpg)" title="背景图片来自wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-noi2019_modal40_color" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      【NOI2019模拟赛（四十）】B. 小H爱染色
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/11/noi2019_modal40_color/" class="article-date">
+  <time datetime="2019-03-10T16:00:00.000Z" itemprop="datePublished">2019-03-11</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/快速数论变换-NTT/">快速数论变换(NTT)</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/拉格朗日插值/">拉格朗日插值</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <p><strong>题目链接：<a href="https://loj.ac/problem/2504" target="_blank" rel="noopener">2504. 小H爱染色</a></strong></p>
+<p><strong>注意，本题解为非正解，但简单易懂，非常暴躁，常数好可以通过</strong></p>
+<a id="more"></a>
+<p>如果最小的球是$i$，那么贡献就是在$[i,n)$中选$m$个，再减去一次都没选到$i$的方案数。所以我们要求的其实就是：</p>
+<script type="math/tex; mode=display">\sum_{i=0}^{n-1}F(i)\left[\binom{n-i}{m}^2-\binom{n-i-1}{m}^2\right]</script><p>如果$n,m$是定值，那么$\binom{n-i}{m}$显然是关于$i$的$m$次多项式，于是$F(i)\left[\binom{n-i}{m}^2-\binom{n-i-1}{m}^2\right]$是一个关于$i$的$3m$次多项式。再根据多项式相关定理，多项式求前缀和后次数$+1$，于是上式是一个关于$n$的$3m+1$次多项式</p>
+<p>令$g(x)=\sum\limits_{i=0}^mF(i)\left[\binom{n-i}{m}^2-\binom{n-i-1}{m}^2\right]$，那么我们只需知道$g(0),g(1),…,g(3m+1)$，就可以通过拉格朗日插值$O(m)$求出$g(n-1)$</p>
+<p>组合数不是难点，预处理$n$的下降幂就行了，注意预处理的时候不要带$\log$，这个和阶乘逆元的处理方法是一样的，问题是我们要求出$F(m+1),F(m+2),…,F(3m+1)$</p>
+<p>考虑拉格朗日插值公式：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+    F(x)&=\sum_{i=0}^mF(i)\prod_{j\neq i}\frac{x-j}{i-j}\\
+    &=\sum_{i=0}^mF(i)\frac{\frac{x!}{(x-m)!(x-i)}}{i!(m-i)!(-1)^{m-i}}\\
+    &=\frac{x!}{(x-m)!}\sum_{i=0}^m\frac{F(i)}{i!(m-i)!(-1)^{m-i}(x-i)}
+\end{aligned}</script><p>令$h_i=\frac{F(i)}{i!(m-i)!(-1)^{m-i}}$，$r_i=i^{-1}$，则：</p>
+<script type="math/tex; mode=display">F(x)=\frac{x!}{(x-m)!}\sum_{i=0}^mh_ir_{x-i}</script><p>它变成了卷积的形式，于是可以用NTT求出$F(m+1),F(m+2),…,F(3m+1)$</p>
+<p>然后再根据上面说的，求出$g(0),g(1),…,g(3m+1)$，就可以拉格朗日插值得到答案了</p>
+<p>注意我们这里要跑一个$4\times10^6$的NTT，所以要卡卡常，预处理单位根+读入优化即可</p>
+<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CPP"><figure class="iseeu highlight /cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> S=(<span class="number">1</span>&lt;&lt;<span class="number">20</span>)+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">char</span> buf[S],*H,*T;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">Get</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(H==T) T=(H=buf)+fread(buf,<span class="number">1</span>,S,<span class="built_in">stdin</span>);</span><br><span class="line">    <span class="keyword">if</span>(H==T) <span class="keyword">return</span> <span class="number">-1</span>;<span class="keyword">return</span> *H++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LL x=<span class="number">0</span>;<span class="keyword">char</span> c=Get();</span><br><span class="line">    <span class="keyword">while</span>(!<span class="built_in">isdigit</span>(c)) c=Get();</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">isdigit</span>(c)) x=x*<span class="number">10</span>+c-<span class="string">'0'</span>,c=Get();</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ha=<span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">4200000</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; omg[<span class="number">25</span>],iomg[<span class="number">25</span>];</span><br><span class="line"><span class="keyword">int</span> g[N],inv[N],rev[N];</span><br><span class="line"><span class="keyword">int</span> fac[N],ifac[N],dmp[N],idmp[N];</span><br><span class="line"><span class="keyword">int</span> pre[N],suf[N];</span><br><span class="line"><span class="keyword">int</span> n,m,f[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;x,<span class="keyword">const</span> <span class="keyword">int</span> &amp;y)</span></span>&#123;<span class="keyword">return</span> (x+y&gt;=ha)?(x+y-ha):(x+y);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">mns</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;x,<span class="keyword">const</span> <span class="keyword">int</span> &amp;y)</span></span>&#123;<span class="keyword">return</span> (x-y&lt;<span class="number">0</span>)?(x-y+ha):(x-y);&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(;b;b&gt;&gt;=<span class="number">1</span>,a=(LL)a*a%ha)</span><br><span class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>) ans=(LL)ans*a%ha;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> N=<span class="number">4000010</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fac[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=N;i++)</span><br><span class="line">        fac[i]=(LL)fac[i<span class="number">-1</span>]*i%ha;</span><br><span class="line">    ifac[N]=Pow(fac[N],ha<span class="number">-2</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=N<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">        ifac[i]=(LL)ifac[i+<span class="number">1</span>]*(i+<span class="number">1</span>)%ha;</span><br><span class="line">    dmp[<span class="number">0</span>]=n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">4</span>*m+<span class="number">1</span>;i++)</span><br><span class="line">        dmp[i]=(LL)dmp[i<span class="number">-1</span>]*(n-i)%ha;</span><br><span class="line">    idmp[<span class="number">4</span>*m+<span class="number">1</span>]=Pow(dmp[<span class="number">4</span>*m+<span class="number">1</span>],ha<span class="number">-2</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">4</span>*m;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">        idmp[i]=(LL)idmp[i+<span class="number">1</span>]*(n-i<span class="number">-1</span>)%ha;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span></span>&#123;<span class="keyword">return</span> (LL)fac[n]*ifac[m]%ha*ifac[n-m]%ha;&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Cm</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n-i&lt;m) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;=<span class="number">4</span>*m+<span class="number">1</span>) <span class="keyword">return</span> C(n-i,m);</span><br><span class="line">    <span class="keyword">return</span> ((LL)dmp[m+i<span class="number">-1</span>]*(i?idmp[i<span class="number">-1</span>]:<span class="number">1</span>)%ha*ifac[m]%ha);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Lagrange</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> *arry,<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;=n) <span class="keyword">return</span> arry[x];</span><br><span class="line">    pre[<span class="number">0</span>]=x;suf[n]=x-n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) pre[i]=(LL)pre[i<span class="number">-1</span>]*(x-i)%ha;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) suf[i]=(LL)suf[i+<span class="number">1</span>]*(x-i)%ha;</span><br><span class="line">    <span class="keyword">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> tmp1=(LL)(i?pre[i<span class="number">-1</span>]:<span class="number">1</span>)*(i&lt;n?suf[i+<span class="number">1</span>]:<span class="number">1</span>)%ha;</span><br><span class="line">        <span class="keyword">int</span> tmp2=(LL)ifac[i]*ifac[n-i]%ha;</span><br><span class="line">        <span class="keyword">if</span>((n-i)&amp;<span class="number">1</span>) tmp2=ha-tmp2;</span><br><span class="line">        res=(res+(LL)arry[i]*tmp1%ha*tmp2)%ha;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (res+ha)%ha;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NTT_init</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,p=<span class="number">0</span>;i&lt;n;i&lt;&lt;=<span class="number">1</span>,p++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> wn=Pow(<span class="number">3</span>,(ha<span class="number">-1</span>)/(i&lt;&lt;<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">int</span> iwn=Pow(wn,ha<span class="number">-2</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>,w=<span class="number">1</span>,iw=<span class="number">1</span>;k&lt;i;k++)</span><br><span class="line">        &#123;</span><br><span class="line">            omg[p].emplace_back(w);</span><br><span class="line">            iomg[p].emplace_back(iw);</span><br><span class="line">            w=(LL)w*wn%ha;</span><br><span class="line">            iw=(LL)iw*iwn%ha;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NTT</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> n,<span class="keyword">int</span> d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="keyword">if</span>(i&lt;rev[i]) swap(a[i],a[rev[i]]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,p=<span class="number">0</span>;i&lt;n;i&lt;&lt;=<span class="number">1</span>,p++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> wn=Pow(<span class="number">3</span>,(ha<span class="number">-1</span>)/(i&lt;&lt;<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">-1</span>) wn=Pow(wn,ha<span class="number">-2</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j+=(i&lt;&lt;<span class="number">1</span>))</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;i;k++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> x=a[j+k],y=(LL)(d&gt;<span class="number">0</span>?omg[p][k]:iomg[p][k])*a[i+j+k]%ha;</span><br><span class="line">                a[j+k]=add(x,y);a[i+j+k]=mns(x,y);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> inv=Pow(n,ha<span class="number">-2</span>);</span><br><span class="line">    <span class="keyword">if</span>(d==<span class="number">-1</span>) <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) a[i]=(LL)a[i]*inv%ha;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gaogaogaogaogao</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        g[i]=(LL)f[i]*ifac[i]%ha*ifac[m-i]%ha;</span><br><span class="line">        <span class="keyword">if</span>((m-i)&amp;<span class="number">1</span>) g[i]=ha-g[i];</span><br><span class="line">    &#125;</span><br><span class="line">    inv[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=<span class="number">3</span>*m+<span class="number">1</span>;i++)</span><br><span class="line">        inv[i]=(LL)(ha-ha/i)*inv[ha%i]%ha;</span><br><span class="line">    <span class="keyword">int</span> len=<span class="number">1</span>,l=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(len&lt;=<span class="number">4</span>*m+<span class="number">1</span>) len&lt;&lt;=<span class="number">1</span>,l++;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++) rev[i]=(rev[i&gt;&gt;<span class="number">1</span>]&gt;&gt;<span class="number">1</span>)|((i&amp;<span class="number">1</span>)&lt;&lt;l<span class="number">-1</span>);</span><br><span class="line">    NTT_init(len);</span><br><span class="line">    NTT(g,len,<span class="number">1</span>);NTT(inv,len,<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)</span><br><span class="line">        g[i]=(LL)g[i]*inv[i]%ha;</span><br><span class="line">    NTT(g,len,<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m+<span class="number">1</span>;i&lt;=<span class="number">3</span>*m+<span class="number">1</span>;i++) f[i]=(LL)g[i]*fac[i]%ha*ifac[i-m<span class="number">-1</span>]%ha;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=read();m=read();init();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=m;i++) f[i]=read();</span><br><span class="line">    gaogaogaogaogao();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=<span class="number">3</span>*m+<span class="number">1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> tmp1=(LL)Cm(i)*Cm(i)%ha;</span><br><span class="line">        <span class="keyword">int</span> tmp2=(LL)Cm(i+<span class="number">1</span>)*Cm(i+<span class="number">1</span>)%ha;</span><br><span class="line">        g[i]=(LL)f[i]*(tmp1-tmp2+ha)%ha;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">3</span>*m+<span class="number">1</span>;i++) g[i]=(g[i]+g[i<span class="number">-1</span>])%ha;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Lagrange(<span class="number">3</span>*m+<span class="number">1</span>,g,n<span class="number">-1</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/11/noi2019_modal40_permutation/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            【NOI2019模拟赛（四十）】A. Permutation and Minimum DP
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/11/noi2019_modal40_party/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【NOI2019模拟赛（四十）】C. 党²</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/logo.png" title="头像">
+    <h3 class="avatar-name">
+      
+        Ebola
+      
+    </h3>
+    <p class="avatar-slogan">
+      万物皆可持久化
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图/">二分图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图匹配/">二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互题/">交互题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划-DP/">动态规划(DP)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字典树-Trie/">字典树(Trie)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM/">序列自动机(SeAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速数论变换-NTT/">快速数论变换(NTT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拉格朗日插值/">拉格朗日插值</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/李超线段树/">李超线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造题/">构造题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树套树/">树套树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT/">树状数组(BIT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/二分图/" style="font-size: 10px;">二分图</a> <a href="/tags/二分图匹配/" style="font-size: 10px;">二分图匹配</a> <a href="/tags/交互题/" style="font-size: 10px;">交互题</a> <a href="/tags/动态规划-DP/" style="font-size: 20px;">动态规划(DP)</a> <a href="/tags/后缀自动机-SAM/" style="font-size: 10px;">后缀自动机(SAM)</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/字典树-Trie/" style="font-size: 10px;">字典树(Trie)</a> <a href="/tags/序列自动机-SeAM/" style="font-size: 10px;">序列自动机(SeAM)</a> <a href="/tags/快速数论变换-NTT/" style="font-size: 10px;">快速数论变换(NTT)</a> <a href="/tags/拉格朗日插值/" style="font-size: 10px;">拉格朗日插值</a> <a href="/tags/暴力/" style="font-size: 10px;">暴力</a> <a href="/tags/李超线段树/" style="font-size: 10px;">李超线段树</a> <a href="/tags/构造题/" style="font-size: 10px;">构造题</a> <a href="/tags/树套树/" style="font-size: 10px;">树套树</a> <a href="/tags/树状数组-BIT/" style="font-size: 15px;">树状数组(BIT)</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a> <a href="/tags/高精度/" style="font-size: 10px;">高精度</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/11/noi2019_modal40_permutation/">【NOI2019模拟赛（四十）】A. Permutation and Minimum DP</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/11/noi2019_modal40_color/">【NOI2019模拟赛（四十）】B. 小H爱染色</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/11/noi2019_modal40_party/">【NOI2019模拟赛（四十）】C. 党²</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/08/noi2019_modal38_walk/">【NOI2019模拟赛（三十八）】C. 走路</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 Ebola &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
