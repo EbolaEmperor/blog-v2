@@ -18,12 +18,12 @@
 <meta property="og:site_name" content="Ebola的博客">
 <meta property="og:description" content="题意简述构造一个有$k$条直径的树，边有边权，$k\leq5\times10^6$，最多使用$5000$个点">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.ebola.pro/2019/03/07/noi2019_modal37_diameter/images/noi2019_modal37_diameter.png">
-<meta property="og:updated_time" content="2019-03-15T05:08:53.063Z">
+<meta property="og:image" content="https://wx2.sinaimg.cn/mw1024/007rnRadgy1g13f0odpvqj31hc0u0dh0.jpg">
+<meta property="og:updated_time" content="2019-03-15T05:29:58.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【NOI2019模拟赛（三十七）】A. 直径">
 <meta name="twitter:description" content="题意简述构造一个有$k$条直径的树，边有边权，$k\leq5\times10^6$，最多使用$5000$个点">
-<meta name="twitter:image" content="http://www.ebola.pro/2019/03/07/noi2019_modal37_diameter/images/noi2019_modal37_diameter.png">
+<meta name="twitter:image" content="https://wx2.sinaimg.cn/mw1024/007rnRadgy1g13f0odpvqj31hc0u0dh0.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
   
@@ -90,7 +90,7 @@
         <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>构造一个有$k$条直径的树，边有边权，$k\leq5\times10^6$，最多使用$5000$个点</p>
 <a id="more"></a>
 <h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>考虑如下构造（边权均为$1$）</p>
-<p><img src="images/noi2019_modal37_diameter.png" alt></p>
+<p><img src="https://wx2.sinaimg.cn/mw1024/007rnRadgy1g13f0odpvqj31hc0u0dh0.jpg" alt></p>
 <p>显然这棵树存在$ab+ac+bc$个点</p>
 <p>于是我们需要求一组$a,b,c$，满足$k=ab+ac+bc$，简单的方法是枚举$a,b$，复杂度$O(n^2)$</p>
 <p>当然还有复杂度更低的方法，就是分解因式得到：$k+c^2=(a+b)(a+c)$，于是只要枚举$c$，然后分解因数就行了。似乎$\log n$次就能枚举到合法的$c$，于是复杂度大概不会超过$O(\log n\times\sqrt{n})$</p>
