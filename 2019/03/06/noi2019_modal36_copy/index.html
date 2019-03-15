@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>B.原样输出 | Ebola的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="题意简述有$n$个串，每个串可以掐头去尾（掐掉任意数量均可），然后接在一起。求能搞到的本质不同串有多少个。当$k=1$时要求输出方案，当$k=0$时要求输出方案数对$10^9+7$取模的结果 输入文件不超过1MB，保证答案文件不超过200MB">
+<meta name="keywords" content="后缀自动机(SAM)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="B.原样输出">
+<meta property="og:url" content="http://www.ebola.pro/2019/03/06/noi2019_modal36_copy/index.html">
+<meta property="og:site_name" content="Ebola的博客">
+<meta property="og:description" content="题意简述有$n$个串，每个串可以掐头去尾（掐掉任意数量均可），然后接在一起。求能搞到的本质不同串有多少个。当$k=1$时要求输出方案，当$k=0$时要求输出方案数对$10^9+7$取模的结果 输入文件不超过1MB，保证答案文件不超过200MB">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-15T04:55:28.519Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="B.原样输出">
+<meta name="twitter:description" content="题意简述有$n$个串，每个串可以掐头去尾（掐掉任意数量均可），然后接在一起。求能搞到的本质不同串有多少个。当$k=1$时要求输出方案，当$k=0$时要求输出方案数对$10^9+7$取模的结果 输入文件不超过1MB，保证答案文件不超过200MB">
+  
+    <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" title="背景图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-noi2019_modal36_copy" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      B.原样输出
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/06/noi2019_modal36_copy/" class="article-date">
+  <time datetime="2019-03-05T16:00:00.000Z" itemprop="datePublished">2019-03-06</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>有$n$个串，每个串可以掐头去尾（掐掉任意数量均可），然后接在一起。求能搞到的本质不同串有多少个。当$k=1$时要求输出方案，当$k=0$时要求输出方案数对$10^9+7$取模的结果</p>
+<p>输入文件不超过1MB，保证答案文件不超过200MB</p>
+<a id="more"></a>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>一个串时很显然，建出SAM，然后dfs输出方案即可。求方案数只要用拓扑排序跑个dp就行</p>
+<p>多个串也很简单。每个串建一个SAM，然后对于$i$号SAM中一个不存在$c$儿子的点，将它的$c$儿子设为$i+1$号SAM根节点的$c$儿子。注意这个步骤要从后往前弄</p>
+<p>代码写的渣可能会被卡空间，反正我没被卡过……</p>
+<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CPP"><figure class="iseeu highlight /cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> S=(<span class="number">1</span>&lt;&lt;<span class="number">24</span>)+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">char</span> obuf[S],*oS=obuf,*oT=oS+S<span class="number">-1</span>,c,qu[<span class="number">55</span>];<span class="keyword">int</span> qr;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">flush</span><span class="params">()</span></span>&#123;fwrite(obuf,<span class="number">1</span>,oS-obuf,<span class="built_in">stdout</span>);oS=obuf;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">putc</span><span class="params">(<span class="keyword">char</span> x)</span></span>&#123;*oS++ =x;<span class="keyword">if</span>(oS==oT) flush();&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">prints</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len=<span class="built_in">strlen</span>(s);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++) putc(s[i]);</span><br><span class="line">    putc(<span class="string">'\n'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ha=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">4500010</span>;</span><br><span class="line"><span class="keyword">int</span> ch[N][<span class="number">4</span>],prt[N],len[N];</span><br><span class="line"><span class="keyword">int</span> lst=<span class="number">0</span>,tot=<span class="number">0</span>,rt;</span><br><span class="line"><span class="keyword">char</span> s[N],ans[N];</span><br><span class="line"><span class="keyword">int</span> n,k,nxt[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> &amp;x,<span class="keyword">const</span> <span class="keyword">int</span> &amp;y)</span></span>&#123;x=(x+y&gt;=ha)?(x+y-ha):(x+y);&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">idx</span><span class="params">(<span class="keyword">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="string">'A'</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="string">'C'</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="string">'G'</span>) <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="string">'T'</span>) <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span> <span class="title">chr</span><span class="params">(<span class="keyword">int</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="number">0</span>) <span class="keyword">return</span> <span class="string">'A'</span>;</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="number">1</span>) <span class="keyword">return</span> <span class="string">'C'</span>;</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="number">2</span>) <span class="keyword">return</span> <span class="string">'G'</span>;</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="number">3</span>) <span class="keyword">return</span> <span class="string">'T'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> p=lst,np=++tot;len[np]=len[p]+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(p&amp;&amp;!ch[p][c]) ch[p][c]=np,p=prt[p];</span><br><span class="line">    <span class="keyword">if</span>(!p) prt[np]=rt;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> q=ch[p][c];</span><br><span class="line">        <span class="keyword">if</span>(len[p]+<span class="number">1</span>==len[q]) prt[np]=q;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> nq=++tot;len[nq]=len[p]+<span class="number">1</span>;</span><br><span class="line">            <span class="built_in">memcpy</span>(ch[nq],ch[q],<span class="keyword">sizeof</span>(ch[nq]));</span><br><span class="line">            prt[nq]=prt[q];prt[q]=prt[np]=nq;</span><br><span class="line">            <span class="keyword">while</span>(ch[p][c]==q) ch[p][c]=nq,p=prt[p];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    lst=np;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!u) <span class="keyword">return</span>;</span><br><span class="line">    ans[d]=<span class="string">'\0'</span>;prints(ans);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">        ans[d]=chr(i),dfs(ch[u][i],d+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getcnt</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> f[N],deg[N];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)</span><br><span class="line">            <span class="keyword">if</span>(ch[i][j]) deg[ch[i][j]]++;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;f[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++)</span><br><span class="line">        <span class="keyword">if</span>(!deg[i]) q.push(i);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> u=q.front();q.pop();</span><br><span class="line">        add(ans,f[u]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> v=ch[u][i];</span><br><span class="line">            <span class="keyword">if</span>(!v) <span class="keyword">continue</span>;</span><br><span class="line">            add(f[v],f[u]);</span><br><span class="line">            <span class="keyword">if</span>(!--deg[v]) q.push(v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,s);</span><br><span class="line">        <span class="keyword">int</span> len=<span class="built_in">strlen</span>(s);</span><br><span class="line">        rt=lst=++tot;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++) insert(idx(s[j]));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=rt;j&lt;=tot;j++) nxt[j]=tot+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=tot;i&gt;=<span class="number">1</span>;i--)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)</span><br><span class="line">            <span class="keyword">if</span>(!ch[i][j]) ch[i][j]=ch[nxt[i]][j];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;k);</span><br><span class="line">    <span class="keyword">if</span>(k==<span class="number">1</span>) dfs(<span class="number">1</span>,<span class="number">0</span>),flush();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,getcnt());</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/14/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            Hello World
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/06/noi2019_modal36_diff/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">C.不同的缩写</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/logo.png" title="头像来自网络">
+    <h3 class="avatar-name">
+      
+        Ebola
+      
+    </h3>
+    <p class="avatar-slogan">
+      万物皆可持久化
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM-字典树-Trie-二分图匹配/">序列自动机(SeAM) 字典树(Trie) 二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT-动态规划-DP/">树状数组(BIT) 动态规划(DP)</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/后缀自动机-SAM/" style="font-size: 10px;">后缀自动机(SAM)</a> <a href="/tags/序列自动机-SeAM-字典树-Trie-二分图匹配/" style="font-size: 10px;">序列自动机(SeAM) 字典树(Trie) 二分图匹配</a> <a href="/tags/树状数组-BIT-动态规划-DP/" style="font-size: 10px;">树状数组(BIT) 动态规划(DP)</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/noi2019_modal36_copy/">B.原样输出</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/noi2019_modal36_diff/">C.不同的缩写</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/noi2019_modal36_fc/">A.全连</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 Ebola &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+</body>
+</html>

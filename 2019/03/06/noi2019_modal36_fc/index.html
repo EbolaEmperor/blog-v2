@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>A.全连 | Ebola的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="题意简述第$i$个东西有$a_it_i$的价值，选了它之后，就不能选区间$(i-t_i,t+t_i)$之间的东西。最大化能选择的总价值 物品数量$10^6$，答案不会爆long long">
+<meta name="keywords" content="树状数组(BIT) 动态规划(DP)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A.全连">
+<meta property="og:url" content="http://www.ebola.pro/2019/03/06/noi2019_modal36_fc/index.html">
+<meta property="og:site_name" content="Ebola的博客">
+<meta property="og:description" content="题意简述第$i$个东西有$a_it_i$的价值，选了它之后，就不能选区间$(i-t_i,t+t_i)$之间的东西。最大化能选择的总价值 物品数量$10^6$，答案不会爆long long">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-15T04:56:48.274Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A.全连">
+<meta name="twitter:description" content="题意简述第$i$个东西有$a_it_i$的价值，选了它之后，就不能选区间$(i-t_i,t+t_i)$之间的东西。最大化能选择的总价值 物品数量$10^6$，答案不会爆long long">
+  
+    <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" title="背景图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-noi2019_modal36_fc" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      A.全连
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/06/noi2019_modal36_fc/" class="article-date">
+  <time datetime="2019-03-05T16:00:00.000Z" itemprop="datePublished">2019-03-06</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树状数组-BIT-动态规划-DP/">树状数组(BIT) 动态规划(DP)</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>第$i$个东西有$a_it_i$的价值，选了它之后，就不能选区间$(i-t_i,t+t_i)$之间的东西。最大化能选择的总价值</p>
+<p>物品数量$10^6$，答案不会爆long long</p>
+<a id="more"></a>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>设$f_i$表示前$i$个物品中，钦定$i$号物品必选，能获得的最大收益</p>
+<p>转移显然：$f<em>i=\max\limits</em>{j=0}^{i-t_i}(f_j\;[j+t_j\leq i])+a_it_i$</p>
+<p>看起来是个二位偏序，主席树做法显然。但百万级别的数据，显然会MLE</p>
+<p>其实只要扫描线，然后一个树状数组维护前缀max就行了。扫到$i+t_i$位置时再把$i$位置的值更新为$f_i$，然后每次询问$i-t_i$的前缀max就完事儿</p>
+<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CPP"><figure class="iseeu highlight /cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>,LL&gt; pil;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1000010</span>;</span><br><span class="line"><span class="keyword">int</span> n,t[N],a[N];</span><br><span class="line"><span class="built_in">vector</span>&lt;pil&gt; upd[N];</span><br><span class="line">LL bit[N],f[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">lowbit</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;x)</span></span>&#123;<span class="keyword">return</span> x&amp;-x;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">upmax</span><span class="params">(LL &amp;x,<span class="keyword">const</span> LL &amp;y)</span></span>&#123;<span class="keyword">if</span>(y&gt;x) x=y;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> p,LL x)</span></span>&#123;<span class="keyword">for</span>(;p&lt;=n;p+=lowbit(p)) upmax(bit[p],x);&#125;</span><br><span class="line"><span class="function">LL <span class="title">query</span><span class="params">(<span class="keyword">int</span> p)</span></span>&#123;LL res=<span class="number">0</span>;<span class="keyword">for</span>(;p;p-=lowbit(p)) upmax(res,bit[p]);<span class="keyword">return</span> res;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,t+i);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,a+i);</span><br><span class="line">    LL ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> p : upd[i]) update(p.first,p.second);</span><br><span class="line">        f[i]=query(max(i-t[i],<span class="number">0</span>))+(LL)a[i]*t[i];</span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">0</span>) update(i,f[i]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(i+t[i]&lt;=n) upd[i+t[i]].emplace_back(pil(i,f[i]));</span><br><span class="line">        ans=max(ans,f[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/06/noi2019_modal36_diff/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            C.不同的缩写
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/logo.png" title="头像来自网络">
+    <h3 class="avatar-name">
+      
+        Ebola
+      
+    </h3>
+    <p class="avatar-slogan">
+      万物皆可持久化
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM-字典树-Trie-二分图匹配/">序列自动机(SeAM) 字典树(Trie) 二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT-动态规划-DP/">树状数组(BIT) 动态规划(DP)</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/后缀自动机-SAM/" style="font-size: 10px;">后缀自动机(SAM)</a> <a href="/tags/序列自动机-SeAM-字典树-Trie-二分图匹配/" style="font-size: 10px;">序列自动机(SeAM) 字典树(Trie) 二分图匹配</a> <a href="/tags/树状数组-BIT-动态规划-DP/" style="font-size: 10px;">树状数组(BIT) 动态规划(DP)</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/noi2019_modal36_copy/">B.原样输出</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/noi2019_modal36_diff/">C.不同的缩写</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/06/noi2019_modal36_fc/">A.全连</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 Ebola &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+</body>
+</html>
