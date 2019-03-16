@@ -299,6 +299,8 @@ html, body, #fullpage{
   position: relative;
   padding: 30px;
   background: rgba(0, 0, 0, .75);
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
   color: #fff
 }
 .widget-box::before, .widget-box::after {
@@ -354,6 +356,7 @@ html, body, #fullpage{
   box-shadow: 1px 2px 3px #333;
   border: 1px solid rgba(190, 126, 74, .3);
   padding: 20px;
+  border-radius: 30px;
   background: rgba(0, 0, 0, .75)
 }
 .article {
@@ -677,6 +680,7 @@ html, body, #fullpage{
   border: 1px solid rgba(190, 126, 74, .3);
   padding: 20px;
   background: rgba(0, 0, 0, .75);
+  border-radius: 30px;
   margin-bottom: 50px;
   text-align: center;
   display: flex;
