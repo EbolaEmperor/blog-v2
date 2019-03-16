@@ -10,18 +10,18 @@
   
   
   
-  <meta name="description" content="题意简述给定一个无向连通图，你需要在以下两个任务中任选一个完成  用$4$种颜色将图染色，使得相邻两点不同色 找一个奇环，使得删去环上所有边后，图仍然连通">
+  <meta name="description" content="题意简述 给定一个无向连通图，你需要在以下两个任务中任选一个完成  用444种颜色将图染色，使得相邻两点不同色 找一个奇环，使得删去环上所有边后，图仍然连通">
 <meta name="keywords" content="二分图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【NOI2019模拟赛（三十八）】A. 图">
 <meta property="og:url" content="http://www.ebola.pro/2019/03/08/noi2019_modal38_graph/index.html">
 <meta property="og:site_name" content="Ebola的博客">
-<meta property="og:description" content="题意简述给定一个无向连通图，你需要在以下两个任务中任选一个完成  用$4$种颜色将图染色，使得相邻两点不同色 找一个奇环，使得删去环上所有边后，图仍然连通">
+<meta property="og:description" content="题意简述 给定一个无向连通图，你需要在以下两个任务中任选一个完成  用444种颜色将图染色，使得相邻两点不同色 找一个奇环，使得删去环上所有边后，图仍然连通">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-03-15T06:01:47.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【NOI2019模拟赛（三十八）】A. 图">
-<meta name="twitter:description" content="题意简述给定一个无向连通图，你需要在以下两个任务中任选一个完成  用$4$种颜色将图染色，使得相邻两点不同色 找一个奇环，使得删去环上所有边后，图仍然连通">
+<meta name="twitter:description" content="题意简述 给定一个无向连通图，你需要在以下两个任务中任选一个完成  用444种颜色将图染色，使得相邻两点不同色 找一个奇环，使得删去环上所有边后，图仍然连通">
   
     <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
   
@@ -33,6 +33,8 @@
   
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
+
+  <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
 </head>
 </html>
 <body>
@@ -85,13 +87,15 @@
     
     <div class="article-content article-content-doorframe" itemprop="articleBody">
       
-        <h3 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h3><p>给定一个无向连通图，你需要在以下两个任务中任选一个完成</p>
+        <h3 id="题意简述"><a class="markdownIt-Anchor" href="#题意简述"></a> 题意简述</h3>
+<p>给定一个无向连通图，你需要在以下两个任务中任选一个完成</p>
 <ol>
-<li>用$4$种颜色将图染色，使得相邻两点不同色</li>
+<li>用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span></span></span></span>种颜色将图染色，使得相邻两点不同色</li>
 <li>找一个奇环，使得删去环上所有边后，图仍然连通</li>
 </ol>
 <a id="more"></a>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>两个任务看起来天马行空，毫无关联？难道是一道“选做题”？</p>
+<h3 id="题解"><a class="markdownIt-Anchor" href="#题解"></a> 题解</h3>
+<p>两个任务看起来天马行空，毫无关联？难道是一道“选做题”？</p>
 <p>如果你像我一样陷入了这个坑里，那这题就基本没希望了……</p>
 <p>还是来说正解吧</p>
 <p>首先求出一棵生成树，将这棵生成树黑白染色</p>
@@ -112,11 +116,11 @@
 <nav id="article-nav">
   <div class="article-nav-block">
     
-      <a href="/2019/03/08/noi2019_modal38_sequence/" id="article-nav-newer" class="article-nav-link-wrap">
+      <a href="/2019/03/08/noi2019_modal38_walk/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption"></strong>
         <div class="article-nav-title">
           
-            【NOI2019模拟赛（三十八）】B. 数列
+            【NOI2019模拟赛（三十八）】C. 走路
           
         </div>
       </a>
@@ -124,8 +128,8 @@
   </div>
   <div class="article-nav-block">
     
-      <a href="/2019/03/08/noi2019_modal38_walk/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">【NOI2019模拟赛（三十八）】C. 走路</div>
+      <a href="/2019/03/07/noi2019_modal37_diameter/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【NOI2019模拟赛（三十七）】A. 直径</div>
         <strong class="article-nav-caption"></strong>
       </a>
     
@@ -207,11 +211,11 @@ gitment.render('gitmentContainer')
           </li>
         
           <li>
-            <a href="/2019/03/11/noi2019_modal40_party/">【NOI2019模拟赛（四十）】C. 党²</a>
+            <a href="/2019/03/11/noi2019_modal40_color/">【NOI2019模拟赛（四十）】B. 小H爱染色</a>
           </li>
         
           <li>
-            <a href="/2019/03/11/noi2019_modal40_color/">【NOI2019模拟赛（四十）】B. 小H爱染色</a>
+            <a href="/2019/03/11/noi2019_modal40_party/">【NOI2019模拟赛（四十）】C. 党²</a>
           </li>
         
           <li>
