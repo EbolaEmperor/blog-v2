@@ -10,18 +10,18 @@
   
   
   
-  <meta name="description" content="题意简述 数轴上[1,n][1,n][1,n]位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第iii个餐馆会吃aia_ia​i​​克饭 移动过程需要消耗能量，假如你已经吃了ccc克饭，然后要移动kkk步，那你要消耗(c+1)k(c+1)k(c+1)k的能量 你现在位于000处，并且拥有mmm的初始能量，请问你最多能吃多少饭，你最后需要回到000处">
+  <meta name="description" content="题意简述 数轴上[1,n][1,n][1,n]位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第iii个餐馆会吃aia_ia​i​​克饭">
 <meta name="keywords" content="动态规划(DP)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【NOI2019模拟赛（三十八）】C. 走路">
 <meta property="og:url" content="http://www.ebola.pro/2019/03/08/noi2019_modal38_walk/index.html">
 <meta property="og:site_name" content="Ebola的博客">
-<meta property="og:description" content="题意简述 数轴上[1,n][1,n][1,n]位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第iii个餐馆会吃aia_ia​i​​克饭 移动过程需要消耗能量，假如你已经吃了ccc克饭，然后要移动kkk步，那你要消耗(c+1)k(c+1)k(c+1)k的能量 你现在位于000处，并且拥有mmm的初始能量，请问你最多能吃多少饭，你最后需要回到000处">
+<meta property="og:description" content="题意简述 数轴上[1,n][1,n][1,n]位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第iii个餐馆会吃aia_ia​i​​克饭">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-16T01:47:55.483Z">
+<meta property="og:updated_time" content="2019-03-17T01:32:56.941Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【NOI2019模拟赛（三十八）】C. 走路">
-<meta name="twitter:description" content="题意简述 数轴上[1,n][1,n][1,n]位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第iii个餐馆会吃aia_ia​i​​克饭 移动过程需要消耗能量，假如你已经吃了ccc克饭，然后要移动kkk步，那你要消耗(c+1)k(c+1)k(c+1)k的能量 你现在位于000处，并且拥有mmm的初始能量，请问你最多能吃多少饭，你最后需要回到000处">
+<meta name="twitter:description" content="题意简述 数轴上[1,n][1,n][1,n]位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第iii个餐馆会吃aia_ia​i​​克饭">
   
     <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
   
@@ -89,9 +89,9 @@
       
         <h3 id="题意简述"><a class="markdownIt-Anchor" href="#题意简述"></a> 题意简述</h3>
 <p>数轴上<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathit">n</span><span class="mclose">]</span></span></span></span>位置均有一个餐馆，你可以选择一些餐馆进去吃饭，每个餐馆只能吃一次，在第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span>个餐馆会吃<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>克饭</p>
+<a id="more"></a>
 <p>移动过程需要消耗能量，假如你已经吃了<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">c</span></span></span></span>克饭，然后要移动<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span>步，那你要消耗<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>c</mi><mo>+</mo><mn>1</mn><mo>)</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">(c+1)k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">c</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span>的能量</p>
 <p>你现在位于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span></span></span></span>处，并且拥有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span>的初始能量，请问你最多能吃多少饭，你最后需要回到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span></span></span></span>处</p>
-<a id="more"></a>
 <h3 id="题解"><a class="markdownIt-Anchor" href="#题解"></a> 题解</h3>
 <p>没有人会傻乎乎地吃一顿然后继续往前走吧。肯定是先选好，然后直奔选了的最后那个餐馆吃，然后边回边吃别的餐馆</p>
 <p>设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>表示没有吃餐馆<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>i</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">[1,i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathit">i</span><span class="mclose">)</span></span></span></span>，在餐馆<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[i,n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathit">i</span><span class="mpunct">,</span><span class="mord mathit">n</span><span class="mclose">]</span></span></span></span>中一共吃了<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span>克饭，需要花费的最小能量是多少</p>
@@ -114,11 +114,11 @@
 <nav id="article-nav">
   <div class="article-nav-block">
     
-      <a href="/2019/03/08/noi2019_modal38_graph/" id="article-nav-newer" class="article-nav-link-wrap">
+      <a href="/2019/03/11/noi2019_modal40_party/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption"></strong>
         <div class="article-nav-title">
           
-            【NOI2019模拟赛（三十八）】A. 图
+            【NOI2019模拟赛（四十）】C. 党²
           
         </div>
       </a>
@@ -126,8 +126,8 @@
   </div>
   <div class="article-nav-block">
     
-      <a href="/2019/03/07/noi2019_modal37_sort/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">【NOI2019模拟赛（三十七）】C. 排序</div>
+      <a href="/2019/03/08/noi2019_modal38_sequence/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【NOI2019模拟赛（三十八）】B. 数列</div>
         <strong class="article-nav-caption"></strong>
       </a>
     
@@ -179,7 +179,7 @@ gitment.render('gitmentContainer')
   <div class="widget-box">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图/">二分图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图匹配/">二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互题/">交互题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划-DP/">动态规划(DP)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单位根反演/">单位根反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字典树-Trie/">字典树(Trie)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM/">序列自动机(SeAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速数论变换-NTT/">快速数论变换(NTT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拉格朗日插值/">拉格朗日插值</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/李超线段树/">李超线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造题/">构造题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树套树/">树套树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT/">树状数组(BIT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成函数/">生成函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组合数学/">组合数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图/">二分图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图匹配/">二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互题/">交互题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划-DP/">动态规划(DP)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单位根反演/">单位根反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字典树-Trie/">字典树(Trie)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM/">序列自动机(SeAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速数论变换-NTT/">快速数论变换(NTT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拉格朗日插值/">拉格朗日插值</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/整除分块/">整除分块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/李超线段树/">李超线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造题/">构造题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树套树/">树套树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT/">树状数组(BIT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树链剖分/">树链剖分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成函数/">生成函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组合数学/">组合数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/结论题/">结论题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
     </div>
   </div>
 
@@ -189,7 +189,7 @@ gitment.render('gitmentContainer')
   <div class="widget-box">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
     </div>
   </div>
 
@@ -205,6 +205,10 @@ gitment.render('gitmentContainer')
           </li>
         
           <li>
+            <a href="/2019/03/11/noi2019_modal40_color/">【NOI2019模拟赛（四十）】B. 小H爱染色</a>
+          </li>
+        
+          <li>
             <a href="/2019/03/11/noi2019_modal40_permutation/">【NOI2019模拟赛（四十）】A. Permutation and Minimum DP</a>
           </li>
         
@@ -213,11 +217,7 @@ gitment.render('gitmentContainer')
           </li>
         
           <li>
-            <a href="/2019/03/11/noi2019_modal40_color/">【NOI2019模拟赛（四十）】B. 小H爱染色</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/08/noi2019_modal38_sequence/">【NOI2019模拟赛（三十八）】B. 数列</a>
+            <a href="/2019/03/08/noi2019_modal38_walk/">【NOI2019模拟赛（三十八）】C. 走路</a>
           </li>
         
       </ul>
