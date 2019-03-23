@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>【NOI2019模拟赛（四十八）】Philosopher | Ebola的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="题意简述 你需要维护一个长为nnn的序列，支持如下操作：">
+<meta name="keywords" content="权值线段树,线段树合并">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NOI2019模拟赛（四十八）】Philosopher">
+<meta property="og:url" content="http://www.ebola.pro/2019/03/22/noi2019_modal48_philosopher/index.html">
+<meta property="og:site_name" content="Ebola的博客">
+<meta property="og:description" content="题意简述 你需要维护一个长为nnn的序列，支持如下操作：">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-23T01:45:00.727Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【NOI2019模拟赛（四十八）】Philosopher">
+<meta name="twitter:description" content="题意简述 你需要维护一个长为nnn的序列，支持如下操作：">
+  
+    <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+
+  <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/bg.jpg)" title="背景图片来自wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-noi2019_modal48_philosopher" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      【NOI2019模拟赛（四十八）】Philosopher
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/22/noi2019_modal48_philosopher/" class="article-date">
+  <time datetime="2019-03-21T16:00:00.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/权值线段树/">权值线段树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线段树合并/">线段树合并</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h3 id="题意简述"><a class="markdownIt-Anchor" href="#题意简述"></a> 题意简述</h3>
+<p>你需要维护一个长为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>的序列，支持如下操作：</p>
+<a id="more"></a>
+<ol>
+<li>将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>区间中的数升序排序</li>
+<li>将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>区间中的数降序排序</li>
+<li>询问区间<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>中所有数乘积的十进制下最高位</li>
+</ol>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">n\leq 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.950078em;vertical-align:-0.13597em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mrel">≤</span><span class="mord mathrm">1</span><span class="mord"><span class="mord mathrm">0</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">5</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，值域范围不超过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span></p>
+<h3 id="题解"><a class="markdownIt-Anchor" href="#题解"></a> 题解</h3>
+<p>首先有一个奇技淫巧</p>
+<p>因为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>a</mi><mrow><msub><mi>log</mi><mi>a</mi></msub><mi>x</mi></mrow></msup><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">a^{\log_ax}=x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:0.849108em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord mathit">a</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit">x</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathit">x</span></span></span></span>，所以有：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mi>y</mi><mo>=</mo><msup><mi>a</mi><mrow><mi>l</mi><mi>o</mi><msub><mi>g</mi><mi>a</mi></msub><mi>x</mi><mo>+</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mi>a</mi></msub><mi>y</mi></mrow></msup></mrow><annotation encoding="application/x-tex">xy=a^{log_ax+log_ay}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:1.043548em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="vlist"><span style="top:0.15em;margin-right:0.07142857142857144em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord mathit">a</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit">x</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="vlist"><span style="top:0.15em;margin-right:0.07142857142857144em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord mathit">a</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，于是我们可以维护区间<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>lg</mi></mrow><annotation encoding="application/x-tex">\lg</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mop">l<span style="margin-right:0.01389em;">g</span></span></span></span></span>值之和，化乘为加，有效规避精度误差。询问时只需取<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>lg</mi></mrow><annotation encoding="application/x-tex">\lg</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mop">l<span style="margin-right:0.01389em;">g</span></span></span></span></span>值的小数部分，然后用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span></span></span></span>去幂一下这个值即为答案</p>
+<p>现在我们的问题转化为了：区间排序、区间求和</p>
+<p>对每个位置开一棵权值线段树，然后区间排序就相当于合并若干棵权值线段树，一棵权值线段树就包含了一段连续区间的所有值。对于区间中间的线段树，直接合并即可。两端的线段树，并不一定完全被包含在排序区间中，于是要分别作一次分离，把包含在排序区间中的信息拎出来。复杂度时均摊一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>log</mi></mrow><annotation encoding="application/x-tex">\log</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span></span></span></span>的</p>
+<p>询问时，遍历区间内所有线段树显然复杂度不对。于是我们要另外维护一棵线段树。对于之前提到的一棵权值线段树，我们将它所表示的连续区间和统计到区间左端点上，然后用这棵新的线段树来求区间和。于是，询问只要在两端的权值线段树上询问一下，再利用这棵新的线段树求一下中间的区间和即可</p>
+<p>另外还要维护这些权值线段树的所有根，以便合并连续的若干段区间。还是以区间左端点代表这棵树，然后将所有连续区间左端点用一个<code>set</code>维护即可。注意发生合并/分离操作时，要及时更新这个<code>set</code></p>
+<p>至于降序排序，只要对每棵权值线段树记一个标记，表示区间内的值是上升还是下降即可。因为权值线段树内的存储顺序只能是升序，所以我们只能改变访问方式，这就导致了要写两个不同方向的<code>split</code>和<code>qsum</code></p>
+<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CPP"><figure class="iseeu highlight /cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">double</span> LD;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">200010</span>,P=N*<span class="number">60</span>;</span><br><span class="line"><span class="keyword">int</span> lc[P],rc[P],sz[P],rt[N],rev[N],tot=<span class="number">0</span>,n,m;</span><br><span class="line">LD sum[P];</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">maintain</span><span class="params">(<span class="keyword">int</span> o)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sz[o]=sz[lc[o]]+sz[rc[o]];</span><br><span class="line">    sum[o]=sum[lc[o]]+sum[rc[o]];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> &amp;o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sz[o=++tot]=<span class="number">1</span>;</span><br><span class="line">    sum[o]=<span class="built_in">log10</span>((LD)k);</span><br><span class="line">    <span class="keyword">if</span>(l==r) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;=mid) insert(lc[o],l,mid,k);</span><br><span class="line">    <span class="keyword">else</span> insert(rc[o],mid+<span class="number">1</span>,r,k);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function">LD <span class="title">qsum1</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;=<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(sz[o]&lt;=k) <span class="keyword">return</span> sum[o];</span><br><span class="line">    <span class="keyword">if</span>(l==r) <span class="keyword">return</span> <span class="built_in">log10</span>((LD)l)*k;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;LD sum=<span class="number">0</span>;</span><br><span class="line">    sum+=qsum1(rc[o],mid+<span class="number">1</span>,r,k-sz[lc[o]]);</span><br><span class="line">    sum+=qsum1(lc[o],l,mid,k);</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function">LD <span class="title">qsum2</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;=<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(sz[o]&lt;=k) <span class="keyword">return</span> sum[o];</span><br><span class="line">    <span class="keyword">if</span>(l==r) <span class="keyword">return</span> <span class="built_in">log10</span>((LD)l)*k;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;LD sum=<span class="number">0</span>;</span><br><span class="line">    sum+=qsum2(lc[o],l,mid,k-sz[rc[o]]);</span><br><span class="line">    sum+=qsum2(rc[o],mid+<span class="number">1</span>,r,k);</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> p1,<span class="keyword">int</span> p2,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!p1||!p2) <span class="keyword">return</span> p1|p2;</span><br><span class="line">    <span class="keyword">if</span>(l==r)&#123;sum[p1]+=sum[p2];sz[p1]+=sz[p2];<span class="keyword">return</span> p1;&#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    lc[p1]=merge(lc[p1],lc[p2],l,mid);</span><br><span class="line">    rc[p1]=merge(rc[p1],rc[p2],mid+<span class="number">1</span>,r);</span><br><span class="line">    maintain(p1);</span><br><span class="line">    <span class="keyword">return</span> p1;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">split1</span><span class="params">(<span class="keyword">int</span> &amp;o,<span class="keyword">int</span> &amp;p,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;=<span class="number">0</span>)&#123;o=<span class="number">0</span>;<span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">if</span>(sz[p]&lt;=k)&#123;o=p,p=<span class="number">0</span>;<span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">if</span>(l==r)</span><br><span class="line">    &#123;</span><br><span class="line">        sz[p]-=k;</span><br><span class="line">        sz[o=++tot]=k;</span><br><span class="line">        sum[o]=<span class="built_in">log10</span>((LD)l)*k;</span><br><span class="line">        sum[p]-=sum[o];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;o=++tot;</span><br><span class="line">    split1(rc[o],rc[p],mid+<span class="number">1</span>,r,k-sz[lc[p]]);</span><br><span class="line">    split1(lc[o],lc[p],l,mid,k);</span><br><span class="line">    maintain(o);maintain(p);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">split2</span><span class="params">(<span class="keyword">int</span> &amp;o,<span class="keyword">int</span> &amp;p,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;=<span class="number">0</span>)&#123;o=<span class="number">0</span>;<span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">if</span>(sz[p]&lt;=k)&#123;o=p,p=<span class="number">0</span>;<span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">if</span>(l==r)</span><br><span class="line">    &#123;</span><br><span class="line">        sz[p]-=k;</span><br><span class="line">        sz[o=++tot]=k;</span><br><span class="line">        sum[o]=<span class="built_in">log10</span>((LD)l)*k;</span><br><span class="line">        sum[p]-=sum[o];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;o=++tot;</span><br><span class="line">    split2(lc[o],lc[p],l,mid,k-sz[rc[p]]);</span><br><span class="line">    split2(rc[o],rc[p],mid+<span class="number">1</span>,r,k);</span><br><span class="line">    maintain(o);maintain(p);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">LD val[N&lt;&lt;<span class="number">2</span>];</span><br><span class="line"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; rts;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l==r)&#123;val[o]=sum[rt[l]];<span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    build(o&lt;&lt;<span class="number">1</span>,l,mid);</span><br><span class="line">    build(o&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,mid+<span class="number">1</span>,r);</span><br><span class="line">    val[o]=val[o&lt;&lt;<span class="number">1</span>]+val[o&lt;&lt;<span class="number">1</span>|<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> k,LD v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l==r)&#123;val[o]=v;<span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;=mid) update(o&lt;&lt;<span class="number">1</span>,l,mid,k,v);</span><br><span class="line">    <span class="keyword">else</span> update(o&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,mid+<span class="number">1</span>,r,k,v);</span><br><span class="line">    val[o]=val[o&lt;&lt;<span class="number">1</span>]+val[o&lt;&lt;<span class="number">1</span>|<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function">LD <span class="title">qsum</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> nl,<span class="keyword">int</span> nr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nl&gt;nr) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(l&gt;=nl&amp;&amp;r&lt;=nr) <span class="keyword">return</span> val[o];</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;LD res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(nl&lt;=mid) res+=qsum(o&lt;&lt;<span class="number">1</span>,l,mid,nl,nr);</span><br><span class="line">    <span class="keyword">if</span>(nr&gt;mid) res+=qsum(o&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,mid+<span class="number">1</span>,r,nl,nr);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> rt1=*(--rts.lower_bound(l));</span><br><span class="line">    <span class="keyword">int</span> rt2=*(--rts.upper_bound(r));</span><br><span class="line">    <span class="keyword">if</span>(rt1==rt2)</span><br><span class="line">    &#123;</span><br><span class="line">        LD ans=rev[rt1]?qsum2(rt[rt1],<span class="number">1</span>,n,r-rt1+<span class="number">1</span>):qsum1(rt[rt1],<span class="number">1</span>,n,r-rt1+<span class="number">1</span>);</span><br><span class="line">        ans-=rev[rt1]?qsum2(rt[rt1],<span class="number">1</span>,n,l-rt1):qsum1(rt[rt1],<span class="number">1</span>,n,l-rt1);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>)(<span class="built_in">pow</span>(<span class="number">10</span>,ans-<span class="built_in">floor</span>(ans))+<span class="number">1e-9</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    LD ans=qsum(<span class="number">1</span>,<span class="number">1</span>,n,max(rt1+sz[rt[rt1]],<span class="number">1</span>),rt2<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">if</span>(!rev[rt1]) ans+=qsum2(rt[rt1],<span class="number">1</span>,n,sz[rt[rt1]]-(l-rt1));</span><br><span class="line">    <span class="keyword">else</span> ans+=qsum1(rt[rt1],<span class="number">1</span>,n,sz[rt[rt1]]-(l-rt1));</span><br><span class="line">    <span class="keyword">if</span>(!rev[rt2]) ans+=qsum1(rt[rt2],<span class="number">1</span>,n,r-rt2+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span> ans+=qsum2(rt[rt2],<span class="number">1</span>,n,r-rt2+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)(<span class="built_in">pow</span>(<span class="number">10</span>,ans-<span class="built_in">floor</span>(ans))+<span class="number">1e-9</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> rt1=*(--rts.lower_bound(l));</span><br><span class="line">    <span class="keyword">int</span> rt2=*(--rts.upper_bound(r)),nrt=<span class="number">0</span>,nrt2=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(rt1==rt2)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!rev[rt1]) split2(rt[l],rt[rt1],<span class="number">1</span>,n,sz[rt[rt1]]-(l-rt1));</span><br><span class="line">        <span class="keyword">else</span> split1(rt[l],rt[rt1],<span class="number">1</span>,n,sz[rt[rt1]]-(l-rt1));</span><br><span class="line">        rev[l]=x^<span class="number">1</span>;rts.insert(l);</span><br><span class="line">        update(<span class="number">1</span>,<span class="number">1</span>,n,rt1,sum[rt[rt1]]);</span><br><span class="line">        update(<span class="number">1</span>,<span class="number">1</span>,n,l,sum[rt[l]]);</span><br><span class="line">        <span class="keyword">if</span>(l+sz[rt[l]]<span class="number">-1</span>==r) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(!rev[rt1]) split2(rt[r+<span class="number">1</span>],rt[l],<span class="number">1</span>,n,sz[rt[l]]-(r-l+<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">else</span> split1(rt[r+<span class="number">1</span>],rt[l],<span class="number">1</span>,n,sz[rt[l]]-(r-l+<span class="number">1</span>));</span><br><span class="line">        rev[r+<span class="number">1</span>]=rev[rt1];rts.insert(r+<span class="number">1</span>);</span><br><span class="line">        update(<span class="number">1</span>,<span class="number">1</span>,n,r+<span class="number">1</span>,sum[rt[r+<span class="number">1</span>]]);</span><br><span class="line">        update(<span class="number">1</span>,<span class="number">1</span>,n,l,sum[rt[l]]);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!rev[rt1]) split2(nrt,rt[rt1],<span class="number">1</span>,n,sz[rt[rt1]]-(l-rt1));</span><br><span class="line">    <span class="keyword">else</span> split1(nrt,rt[rt1],<span class="number">1</span>,n,sz[rt[rt1]]-(l-rt1));</span><br><span class="line">    <span class="keyword">if</span>(!rev[rt2]) split2(nrt2,rt[rt2],<span class="number">1</span>,n,sz[rt[rt2]]-(r-rt2+<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">else</span> split1(nrt2,rt[rt2],<span class="number">1</span>,n,sz[rt[rt2]]-(r-rt2+<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">if</span>(nrt2)</span><br><span class="line">    &#123;</span><br><span class="line">        rt[r+<span class="number">1</span>]=nrt2;</span><br><span class="line">        rev[r+<span class="number">1</span>]=rev[rt2];</span><br><span class="line">        rts.insert(r+<span class="number">1</span>);</span><br><span class="line">        update(<span class="number">1</span>,<span class="number">1</span>,n,r+<span class="number">1</span>,sum[rt[r+<span class="number">1</span>]]);</span><br><span class="line">    &#125;</span><br><span class="line">    update(<span class="number">1</span>,<span class="number">1</span>,n,rt1,sum[rt[rt1]]);</span><br><span class="line">    update(<span class="number">1</span>,<span class="number">1</span>,n,rt2,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> it=rts.lower_bound(l);it!=rts.end()&amp;&amp;*it&lt;=r;)</span><br><span class="line">    &#123;</span><br><span class="line">        nrt=merge(nrt,rt[*it],<span class="number">1</span>,n);</span><br><span class="line">        update(<span class="number">1</span>,<span class="number">1</span>,n,*it,<span class="number">0</span>);rt[*it]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">auto</span> tmp=it;it++;</span><br><span class="line">        rts.erase(tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    rt[l]=nrt;rts.insert(l);</span><br><span class="line">    update(<span class="number">1</span>,<span class="number">1</span>,n,l,sum[rt[l]]);</span><br><span class="line">    rev[l]=x^<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    rts.insert(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,x;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</span><br><span class="line">        insert(rt[i],<span class="number">1</span>,n,x);</span><br><span class="line">        rts.insert(i);</span><br><span class="line">    &#125;</span><br><span class="line">    build(<span class="number">1</span>,<span class="number">1</span>,n);</span><br><span class="line">    <span class="keyword">int</span> opt,l,r,x;</span><br><span class="line">    <span class="keyword">while</span>(m--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;opt,&amp;l,&amp;r);</span><br><span class="line">        <span class="keyword">if</span>(opt==<span class="number">2</span>) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,query(l,r));</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x),sort(l,r,x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="最后列举一下我调试时发现的细节"><a class="markdownIt-Anchor" href="#最后列举一下我调试时发现的细节"></a> 最后列举一下我调试时发现的细节</h3>
+<ol>
+<li><code>set</code>要插入一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span></span></span></span>，不然<code>lower_bound</code>后再<code>--</code>会访问到空指针</li>
+<li>操作区间被某棵权值线段树完全包含时，需要特判</li>
+<li><code>split</code>时会新建节点，因此内存池要开<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>n</mi><mi>log</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">2n\log n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathit">n</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord mathit">n</span></span></span></span></li>
+<li>值有重复，<code>split</code>和<code>merge</code>时若走到叶子节点还没分出来，说明存在重复值，要进行一些特殊处理</li>
+<li>求出答案后要先加上<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>p</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">eps</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">e</span><span class="mord mathit">p</span><span class="mord mathit">s</span></span></span></span>，然后下取整</li>
+<li><code>split</code>后的权值线段树要继承原树的方向标记</li>
+<li>随时注意对两种不同方向的分类讨论</li>
+<li><code>split</code>和<code>merge</code>后一定要记得更新<code>set</code>以及维护总区间和的那棵线段树</li>
+<li>遍历<code>set</code>时，不能光判<code>*it&lt;=r</code>，还要判断是否到达<code>set</code>的尾部</li>
+</ol>
+<p>可以看出细节非常多，上面列举的每个细节都是我调了一组又一组的对拍数据发现的，前后大概调了<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>1</mn></mrow><annotation encoding="application/x-tex">11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">1</span></span></span></span>组数据吧，心态爆炸</p>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/22/noi2019_modal48_deepdarkfantancy/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            【NOI2019模拟赛（四十八）】Deep Dark Fantancy
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/21/noi2019_modal47_average/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【NOI2019模拟赛（四十七）】平均值</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/logo.png" title="头像">
+    <h3 class="avatar-name">
+      
+        Ebola
+      
+    </h3>
+    <p class="avatar-slogan">
+      万物皆可持久化
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Link-Cut-Tree/">Link-Cut-Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kruskal重构树/">kruskal重构树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分/">二分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图/">二分图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图匹配/">二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互题/">交互题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划-DP/">动态规划(DP)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单位根反演/">单位根反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字典树-Trie/">字典树(Trie)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM/">序列自动机(SeAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速数论变换-NTT/">快速数论变换(NTT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速沃尔什变换-FWT/">快速沃尔什变换(FWT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思维题/">思维题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扫描线/">扫描线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拉格朗日插值/">拉格朗日插值</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/提答题/">提答题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数论/">数论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/整除分块/">整除分块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最大权闭合子图/">最大权闭合子图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小割/">最小割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路/">最短路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/权值线段树/">权值线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/李超线段树/">李超线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造题/">构造题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树套树/">树套树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树形DP/">树形DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT/">树状数组(BIT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树链剖分/">树链剖分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率与期望/">概率与期望</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状压DP/">状压DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成函数/">生成函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树合并/">线段树合并</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组合数学/">组合数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/结论题/">结论题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置换/">置换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/背包/">背包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/质因数分解/">质因数分解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/9999/01/">January 9999</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/9999/01/01/hello-world/">欢迎来到Ebola的博客！</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/noi2019_modal48_wallace/">【NOI2019模拟赛（四十八）】Wallace</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/noi2019_modal48_deepdarkfantancy/">【NOI2019模拟赛（四十八）】Deep Dark Fantancy</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/noi2019_modal48_philosopher/">【NOI2019模拟赛（四十八）】Philosopher</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/noi2019_modal47_average/">【NOI2019模拟赛（四十七）】平均值</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-box">
+    <h3 class="widget-title">Friends</h3>
+    <div class="widget">
+        <ul>
+            <li><a href="https://www.cnblogs.com/OYJason/">OYJason</a></li>
+            <li><a href="https://blog.csdn.net/Mys_C_K/">Mys_C_K</a></li>
+            <li><a href="https://www.cnblogs.com/ywwyww/">ywwyww</a></li>
+            <li><a href="https://www.illyasviel.top/">yxq</a></li>
+            <li><a href="https://rogerdtz.github.io/">RogerDTZ</a></li>
+            <li><a href="http://www.cnblogs.com/yoyoball/">hy</a></li>
+            <li><a href="http://www.cnblogs.com/xiefengze1">xfz</a></li>
+            <li><a href="https://drelf.cn">Drelf</a></li>
+        </ul>
+    </div>
+</div>
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 Ebola &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
