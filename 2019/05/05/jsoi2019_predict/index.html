@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>【JSOI2019】精确预测 | Ebola的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="题目链接：3101. 精确预测  -  LibreOJ">
+<meta name="keywords" content="2-SAT,传递闭包,卡常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【JSOI2019】精确预测">
+<meta property="og:url" content="http://www.ebola.pro/2019/05/05/jsoi2019_predict/index.html">
+<meta property="og:site_name" content="Ebola的博客">
+<meta property="og:description" content="题目链接：3101. 精确预测  -  LibreOJ">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-05T08:39:20.892Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【JSOI2019】精确预测">
+<meta name="twitter:description" content="题目链接：3101. 精确预测  -  LibreOJ">
+  
+    <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+
+  <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(http://wx2.sinaimg.cn/large/007rnRadgy1g1dmpggicsj31ee0u0e5a.jpg)" title="背景图片来自wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-jsoi2019_predict" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      【JSOI2019】精确预测
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/05/05/jsoi2019_predict/" class="article-date">
+  <time datetime="2019-05-04T16:00:00.000Z" itemprop="datePublished">2019-05-05</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/2-SAT/">2-SAT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/传递闭包/">传递闭包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/卡常/">卡常</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <p><strong>题目链接：<a href="https://loj.ac/problem/3101" target="_blank" rel="noopener">3101. 精确预测  -  LibreOJ</a></strong></p>
+<a id="more"></a>
+<p>显然可以想到2-SAT</p>
+<p>设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,t,1/0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit">t</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mord mathrm">/</span><span class="mord mathrm">0</span><span class="mclose">)</span></span></span></span>表示第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>个人在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span>时刻的状态为生/死，然后直接根据题意连边即可，注意2-SAT的反对称性</p>
+<p>然后如果第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>个人在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span>时刻活着可以推出第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span>个人在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span>时刻死去，那显然统计<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>的答案时就不能算<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span>了。此外若存在一个人<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>，他在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span>时刻活着可以推出他自己在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span>时刻死去，那他显然不能活着，因此在统计任何一个人的答案的时候都不能算他</p>
+<p>于是不难想到传递闭包。对每个点统计出它能到达多少个形如<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>T</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,T+1,0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mclose">)</span></span></span></span>的点，然后把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>T</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,T+1,1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>统计的结果拿出来，再用总的减一下就是第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>个人的答案了。传递闭包使用bitset优化，并按缩点后的拓扑序转移</p>
+<p>接下来考虑优化</p>
+<p>发现不需要对每个人的每个时刻都建出点，具体来说，只有约束条件需要用到的点以及时刻为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span>的点才是有效的。再深入探讨一下会发现，对于一组约束条件，只要建立出点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,t,1/0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit">t</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mord mathrm">/</span><span class="mord mathrm">0</span><span class="mclose">)</span></span></span></span>即可，不需要对<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span>新建时刻，于是总点数是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>n</mi><mo>+</mo><mn>2</mn><mi>m</mi></mrow><annotation encoding="application/x-tex">2n+2m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mord mathit">m</span></span></span></span></p>
+<p>于是，复杂度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mfrac><mrow><mi>n</mi><mo>(</mo><mi>n</mi><mo>+</mo><mi>m</mi><mo>)</mo></mrow><mrow><mi>w</mi></mrow></mfrac><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\frac{n(n+m)}{w})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.01em;"></span><span class="strut bottom" style="height:1.355em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.485em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mclose">)</span></span></span></span>，空间不能接受</p>
+<p>于是我们可以分块做，每次只对每个点统计它能到达多少个形如<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>T</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,T+1,0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mclose">)</span></span></span></span>的点，其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>∈</mo><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">x\in[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">∈</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>，这样时间复杂度显然是不变的，但空间复杂度降为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mfrac><mrow><mi>B</mi><mo>(</mo><mi>n</mi><mo>+</mo><mi>m</mi><mo>)</mo></mrow><mrow><mi>w</mi></mrow></mfrac><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\frac{B(n+m)}{w})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.01em;"></span><span class="strut bottom" style="height:1.355em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.485em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mclose">)</span></span></span></span>。由于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span></span>越小，时间常数越大，所以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span></span>应该在空间允许的范围内尽可能取大。<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span></span>肯定是在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mn>5</mn><mn>0</mn><mn>0</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">25000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathrm">5</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>6</mn><mn>6</mn><mn>6</mn><mn>7</mn></mrow><annotation encoding="application/x-tex">16667</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">6</span><span class="mord mathrm">6</span><span class="mord mathrm">6</span><span class="mord mathrm">7</span></span></span></span>这两个数中选，取两个数中间的肯定是不优的，当然最好向上取到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mn>2</mn></mrow><annotation encoding="application/x-tex">32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">3</span><span class="mord mathrm">2</span></span></span></span>的整数倍。实测我的代码是后者更优</p>
+<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CPP"><figure class="iseeu highlight /cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> GCC optimize(3)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> P=<span class="number">300010</span>,N=<span class="number">50010</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x,t,d;</span><br><span class="line">    Node(<span class="keyword">int</span> _x=<span class="number">0</span>,<span class="keyword">int</span> <span class="keyword">_t</span>=<span class="number">0</span>,<span class="keyword">int</span> _d=<span class="number">0</span>):x(_x),t(<span class="keyword">_t</span>),d(_d)&#123;&#125;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Node &amp;b) <span class="keyword">const</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(x!=b.x) <span class="keyword">return</span> x&lt;b.x;</span><br><span class="line">        <span class="keyword">if</span>(t!=b.t) <span class="keyword">return</span> t&lt;b.t;</span><br><span class="line">        <span class="keyword">return</span> d&lt;b.d;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Qry</span>&#123;</span><span class="keyword">int</span> c,t,x,y;&#125; qry[N&lt;&lt;<span class="number">1</span>];</span><br><span class="line"><span class="built_in">map</span>&lt;Node,<span class="keyword">int</span>&gt; idx;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; e[P];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; g[P],gg[P],tme[N];</span><br><span class="line"><span class="keyword">int</span> dfn[P],low[P],dfc=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> scc[P],sccn=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> T,n,m,tot=<span class="number">0</span>,ans[N];</span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stk;</span><br><span class="line"><span class="keyword">int</span> cnt[<span class="number">65536</span>];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Bitset</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> v[<span class="number">521</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">65536</span>;i++) cnt[i]=cnt[i-(i&amp;-i)]+<span class="number">1</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span></span>&#123;<span class="built_in">memset</span>(v,<span class="number">0</span>,<span class="keyword">sizeof</span>(v));&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;x)</span></span>&#123;v[x/<span class="number">32</span>]|=<span class="number">1</span>&lt;&lt;(x&amp;<span class="number">31</span>);&#125;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> [] (<span class="keyword">const</span> <span class="keyword">int</span> &amp;x)&#123;<span class="keyword">return</span> (v[x/<span class="number">32</span>]&gt;&gt;(x&amp;<span class="number">31</span>))&amp;<span class="number">1</span>;&#125;</span><br><span class="line">    Bitset <span class="keyword">operator</span> |= (<span class="keyword">const</span> Bitset &amp;b)&#123;<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">521</span>;i++) v[i]|=b.v[i];<span class="keyword">return</span> *<span class="keyword">this</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">count</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">521</span>;i++)</span><br><span class="line">            ans+=cnt[v[i]&amp;<span class="number">65535</span>]+cnt[v[i]&gt;&gt;<span class="number">16</span>];</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; bag[P],bad;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    dfn[u]=low[u]=++dfc;</span><br><span class="line">    stk.push(u);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v : g[u])</span><br><span class="line">        <span class="keyword">if</span>(!dfn[v]) Tarjan(v),low[u]=min(low[u],low[v]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!scc[v]) low[u]=min(low[u],dfn[v]);</span><br><span class="line">    <span class="keyword">if</span>(low[u]==dfn[u])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> o;sccn++;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            o=stk.top();</span><br><span class="line">            scc[o]=sccn;</span><br><span class="line">            stk.pop();</span><br><span class="line">        &#125;<span class="keyword">while</span>(o!=u);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;T,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) tme[i].push_back(T+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>,&amp;qry[i].c,&amp;qry[i].t,&amp;qry[i].x,&amp;qry[i].y);</span><br><span class="line">        tme[qry[i].x].push_back(qry[i].t);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sort(tme[i].begin(),tme[i].end());</span><br><span class="line">        <span class="keyword">int</span> cnt=unique(tme[i].begin(),tme[i].end())-tme[i].begin();</span><br><span class="line">        tme[i].resize(cnt);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> t : tme[i]) idx[Node(i,t,<span class="number">1</span>)]=++tot,idx[Node(i,t,<span class="number">0</span>)]=++tot;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;cnt;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            g[idx[Node(i,tme[i][j<span class="number">-1</span>],<span class="number">0</span>)]].push_back(idx[Node(i,tme[i][j],<span class="number">0</span>)]);</span><br><span class="line">            g[idx[Node(i,tme[i][j],<span class="number">1</span>)]].push_back(idx[Node(i,tme[i][j<span class="number">-1</span>],<span class="number">1</span>)]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> c=qry[i].c,t=qry[i].t,x=qry[i].x,y=qry[i].y;</span><br><span class="line">        <span class="keyword">if</span>(c==<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> t2=*lower_bound(tme[y].begin(),tme[y].end(),t+<span class="number">1</span>);</span><br><span class="line">            Node a1(x,t,1),a0(x,t,0);</span><br><span class="line">            Node b1(y,t2,1),b0(y,t2,0);</span><br><span class="line">            g[idx[a0]].push_back(idx[b0]);</span><br><span class="line">            g[idx[b1]].push_back(idx[a1]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> t2=*lower_bound(tme[y].begin(),tme[y].end(),t);</span><br><span class="line">            Node a1(x,t,1),a0(x,t,0);</span><br><span class="line">            Node b1(y,t2,1),b0(y,t2,0);</span><br><span class="line">            g[idx[a1]].push_back(idx[b0]);</span><br><span class="line">            g[idx[b1]].push_back(idx[a0]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++)</span><br><span class="line">        <span class="keyword">if</span>(!dfn[i]) Tarjan(i);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">1</span>;u&lt;=tot;u++)<span class="keyword">for</span>(<span class="keyword">int</span> v : g[u])</span><br><span class="line">        <span class="keyword">if</span>(scc[u]!=scc[v]&amp;&amp;!e[scc[u]].count(scc[v]))</span><br><span class="line">            gg[scc[u]].push_back(scc[v]),e[scc[u]][scc[v]]=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gao</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=sccn;i++) bag[i].reset();</span><br><span class="line">    bad.reset();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=l;i&lt;=r;i++)</span><br><span class="line">        bag[scc[idx[Node(i,T+<span class="number">1</span>,<span class="number">0</span>)]]].<span class="built_in">set</span>(i-l);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">1</span>;u&lt;=sccn;u++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> v : gg[u]) bag[u]|=bag[v];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=l;i&lt;=r;i++)</span><br><span class="line">        <span class="keyword">if</span>(bag[scc[idx[Node(i,T+<span class="number">1</span>,<span class="number">1</span>)]]][i-l]) bad.<span class="built_in">set</span>(i-l),ans[i]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        <span class="keyword">if</span>(ans[i]) ans[i]-=(bag[scc[idx[Node(i,T+<span class="number">1</span>,<span class="number">1</span>)]]]|=bad).count();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    bad.init();build();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) ans[i]=n<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i+=<span class="number">16672</span>) gao(i,min(n,i+<span class="number">16671</span>));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="built_in">cout</span>&lt;&lt;ans[i]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>,<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/9999/01/01/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            欢迎来到Ebola的博客！
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/26/noi2019_modal55_ha/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【NOI2019模拟赛（五十五）】哈</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="http://wx3.sinaimg.cn/large/007rnRadgy1g1dmftamhoj30b90bfdpv.jpg" title="头像">
+    <h3 class="avatar-name">
+      
+        Ebola
+      
+    </h3>
+    <p class="avatar-slogan">
+      万物皆可持久化
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2-SAT/">2-SAT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BSGS/">BSGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDQ分治/">CDQ分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS序/">DFS序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Link-Cut-Tree/">Link-Cut-Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lucas定理/">Lucas定理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Tree定理/">Matrix-Tree定理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/exBSGS/">exBSGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kruskal重构树/">kruskal重构树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中国剩余定理-CRT/">中国剩余定理(CRT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/主席树/">主席树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分/">二分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图/">二分图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图匹配/">二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互题/">交互题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/传递闭包/">传递闭包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凸包/">凸包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分数规划/">分数规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划-DP/">动态规划(DP)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区间DP/">区间DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单位根反演/">单位根反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单调栈/">单调栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卡常/">卡常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原根/">原根</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式合并/">启发式合并</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字典树-Trie/">字典树(Trie)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容斥原理/">容斥原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM/">序列自动机(SeAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速数论变换-NTT/">快速数论变换(NTT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速沃尔什变换-FWT/">快速沃尔什变换(FWT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思维题/">思维题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展欧几里得定理-exgcd/">扩展欧几里得定理(exgcd)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扫描线/">扫描线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拉格朗日插值/">拉格朗日插值</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/提答题/">提答题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数论/">数论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/整除分块/">整除分块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最大权闭合子图/">最大权闭合子图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小割/">最小割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小割树-Gomory-Hu-Tree/">最小割树(Gomory-Hu Tree)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路/">最短路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最近公共祖先-LCA/">最近公共祖先(LCA)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/权值线段树/">权值线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/李超线段树/">李超线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造题/">构造题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树套树/">树套树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树形DP/">树形DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT/">树状数组(BIT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树链剖分/">树链剖分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率与期望/">概率与期望</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模拟/">模拟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比赛题解/">比赛题解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状压DP/">状压DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成函数/">生成函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/矩阵乘法/">矩阵乘法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线性基/">线性基</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线性筛/">线性筛</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树合并/">线段树合并</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组合数学/">组合数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/结论题/">结论题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置换/">置换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/背包/">背包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/莫比乌斯反演/">莫比乌斯反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚树/">虚树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算几何/">计算几何</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/质因数分解/">质因数分解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/费用流/">费用流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高斯消元/">高斯消元</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/9999/01/">January 9999</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/9999/01/01/hello-world/">欢迎来到Ebola的博客！</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/jsoi2019_predict/">【JSOI2019】精确预测</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/26/noi2019_modal55_ha/">【NOI2019模拟赛（五十五）】哈</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/26/noi2019_modal55_ya/">【NOI2019模拟赛（五十五）】呀</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/26/noi2019_modal55_lo/">【NOI2019模拟赛（五十五）】喽</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-box">
+    <h3 class="widget-title">Friends</h3>
+    <div class="widget">
+        <ul>
+            <li><a href="https://www.cnblogs.com/OYJason/">OYJason</a></li>
+            <li><a href="https://blog.csdn.net/Mys_C_K/">Mys_C_K</a></li>
+            <li><a href="https://www.cnblogs.com/ywwyww/">ywwyww</a></li>
+            <li><a href="https://www.illyasviel.top/">yxq</a></li>
+            <li><a href="https://rogerdtz.github.io/">RogerDTZ</a></li>
+            <li><a href="http://www.cnblogs.com/yoyoball/">hy</a></li>
+            <li><a href="http://www.cnblogs.com/xiefengze1">xfz</a></li>
+            <li><a href="https://drelf.cn">Drelf</a></li>
+        </ul>
+    </div>
+</div>
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 Ebola &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
