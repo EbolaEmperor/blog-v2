@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>【北京集训2016（十二）】疯狂求导 | Ebola的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="题解 注意这个垃圾多项式不能合并同类项。那就很好做了">
+<meta name="keywords" content="线段树,树套树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【北京集训2016（十二）】疯狂求导">
+<meta property="og:url" content="http://www.ebola.pro/2018/09/18/beijing_training_2016_day12_c/index.html">
+<meta property="og:site_name" content="Ebola的博客">
+<meta property="og:description" content="题解 注意这个垃圾多项式不能合并同类项。那就很好做了">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-06T08:27:34.350Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【北京集训2016（十二）】疯狂求导">
+<meta name="twitter:description" content="题解 注意这个垃圾多项式不能合并同类项。那就很好做了">
+  
+    <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+
+  <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(http://wx2.sinaimg.cn/large/007rnRadgy1g1dmpggicsj31ee0u0e5a.jpg)" title="背景图片来自wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-beijing_training_2016_day12_c" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      【北京集训2016（十二）】疯狂求导
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2018/09/18/beijing_training_2016_day12_c/" class="article-date">
+  <time datetime="2018-09-17T16:00:00.000Z" itemprop="datePublished">2018-09-18</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树套树/">树套树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线段树/">线段树</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h3 id="题解"><a class="markdownIt-Anchor" href="#题解"></a> 题解</h3>
+<p>注意这个垃圾多项式不能合并同类项。那就很好做了</p>
+<a id="more"></a>
+<p>树套树随便搞。我写了区间线段树套权值线段树。外层表示所有多项式的区间，内层表示这个区间内所有多项式的各次项的项数。这样就是一个区间K大问题，询问时直接把所有根拎出来，然后二分即可</p>
+<p>我要说的是tag的问题。绝对不能写pushdown，不然会被卡成n方。我对每个节点的tag维护了一棵内层线段树，做询问时把所有tag根一并拎出来。由于tag的一个数可以代表很多倍，所以我们给每个根加一个系数，二分过程中枚举每个根计算size时乘上这个根的系数</p>
+<p>边界问题不太好处理。我的方法是将求K大变成求K+1大，求出的那个就是要导成0的最高次数</p>
+<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CPP"><figure class="iseeu highlight /cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> IO</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> S=(<span class="number">1</span>&lt;&lt;<span class="number">20</span>)+<span class="number">5</span>;</span><br><span class="line">    <span class="keyword">char</span> buf[S],*H,*T;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">Get</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(H==T) T=(H=buf)+fread(buf,<span class="number">1</span>,S,<span class="built_in">stdin</span>);</span><br><span class="line">        <span class="keyword">if</span>(H==T) <span class="keyword">return</span> <span class="number">-1</span>;<span class="keyword">return</span> *H++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;<span class="title">inline</span> <span class="title">void</span> <span class="title">read</span>(<span class="title">I</span> &amp;<span class="title">x</span>)</span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        x=<span class="number">0</span>;<span class="keyword">int</span> fg=<span class="number">1</span>;<span class="keyword">char</span> c=Get();</span><br><span class="line">        <span class="keyword">while</span>(!<span class="built_in">isdigit</span>(c)&amp;&amp;c!=<span class="string">'-'</span>) c=Get();</span><br><span class="line">        <span class="keyword">if</span>(c==<span class="string">'-'</span>) fg=<span class="number">-1</span>,c=Get();</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">isdigit</span>(c)) x=x*<span class="number">10</span>+c-<span class="string">'0'</span>,c=Get();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">char</span> obuf[S],*oS=obuf,*oT=oS+S<span class="number">-1</span>,c,qu[<span class="number">55</span>];<span class="keyword">int</span> qr;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">flush</span><span class="params">()</span></span>&#123;fwrite(obuf,<span class="number">1</span>,oS-obuf,<span class="built_in">stdout</span>);oS=obuf;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">putc</span><span class="params">(<span class="keyword">char</span> x)</span></span>&#123;*oS++ =x;<span class="keyword">if</span>(oS==oT) flush();&#125;</span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;<span class="title">inline</span> <span class="title">void</span> <span class="title">print</span>(<span class="title">I</span> <span class="title">x</span>)</span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="keyword">if</span>(!x) putc(<span class="string">'0'</span>);</span><br><span class="line">        <span class="keyword">if</span>(x&lt;<span class="number">0</span>) putc(<span class="string">'-'</span>),x=-x;</span><br><span class="line">        <span class="keyword">while</span>(x) qu[++qr]=x%<span class="number">10</span>+<span class="string">'0'</span>,x/=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">while</span>(qr) putc(qu[qr--]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>,<span class="title">class</span> <span class="title">T2</span>&gt;<span class="title">inline</span> <span class="title">void</span> <span class="title">print</span>(<span class="title">T1</span> <span class="title">x</span>,<span class="title">T2</span> <span class="title">y</span>)</span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        print(x);putc(<span class="string">' '</span>);</span><br><span class="line">        print(y);putc(<span class="string">'\n'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> IO;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> P=<span class="number">50000010</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MX=<span class="number">1000010</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">200010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> lc[P],rc[P],tot=<span class="number">0</span>;LL sum[P];</span><br><span class="line"><span class="keyword">int</span> tree[N&lt;&lt;<span class="number">2</span>],tag[N&lt;&lt;<span class="number">2</span>],n,m;</span><br><span class="line"><span class="keyword">int</span> rts[<span class="number">155</span>],tms[<span class="number">155</span>],rt[<span class="number">155</span>],cnt=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> &amp;o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> k,<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!o) o=++tot;</span><br><span class="line">    sum[o]+=x;</span><br><span class="line">    <span class="keyword">if</span>(l==r) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;=mid) insert(lc[o],l,mid,k,x);</span><br><span class="line">    <span class="keyword">else</span> insert(rc[o],mid+<span class="number">1</span>,r,k,x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> nl,<span class="keyword">int</span> nr,<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l==nl&amp;&amp;r==nr)</span><br><span class="line">    &#123;</span><br><span class="line">        insert(tree[o],<span class="number">0</span>,MX,x,<span class="number">1</span>);</span><br><span class="line">        insert(tag[o],<span class="number">0</span>,MX,x,<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    insert(tree[o],<span class="number">0</span>,MX,x,nr-nl+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(nr&lt;=mid) Insert(o&lt;&lt;<span class="number">1</span>,l,mid,nl,nr,x);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(nl&gt;mid) Insert(o&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,mid+<span class="number">1</span>,r,nl,nr,x);</span><br><span class="line">    <span class="keyword">else</span> Insert(o&lt;&lt;<span class="number">1</span>,l,mid,nl,mid,x),Insert(o&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,mid+<span class="number">1</span>,r,mid+<span class="number">1</span>,nr,x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> nl,<span class="keyword">int</span> nr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l==nl&amp;&amp;r==nr)</span><br><span class="line">    &#123;</span><br><span class="line">        rts[++cnt]=tree[o];tms[cnt]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(tag[o]&amp;&amp;r&gt;l) rts[++cnt]=tag[o],tms[cnt]=nr-nl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(tag[o]) rts[++cnt]=tag[o],tms[cnt]=nr-nl+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(nr&lt;=mid) Query(o&lt;&lt;<span class="number">1</span>,l,mid,nl,nr);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(nl&gt;mid) Query(o&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,mid+<span class="number">1</span>,r,nl,nr);</span><br><span class="line">    <span class="keyword">else</span> Query(o&lt;&lt;<span class="number">1</span>,l,mid,nl,mid),Query(o&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,mid+<span class="number">1</span>,r,mid+<span class="number">1</span>,nr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">LL <span class="title">getsum</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l==r) <span class="keyword">return</span> sum[o];</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(k&lt;=mid) <span class="keyword">return</span> getsum(lc[o],l,mid,k)+sum[rc[o]];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> getsum(rc[o],mid+<span class="number">1</span>,r,k);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gao</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r,LL k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cnt=<span class="number">0</span>;Query(<span class="number">1</span>,<span class="number">1</span>,n,l,r);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++) rt[i]=rts[i];</span><br><span class="line">    LL s=<span class="number">0</span>;<span class="keyword">int</span> L=<span class="number">0</span>,R=MX,M;k++;</span><br><span class="line">    <span class="keyword">while</span>(L&lt;R)</span><br><span class="line">    &#123;</span><br><span class="line">        M=L+R&gt;&gt;<span class="number">1</span>;s=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">            s+=sum[rc[rts[i]]]*tms[i];</span><br><span class="line">        <span class="keyword">if</span>(k&lt;=s) L=M+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> R=M,k-=s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">            rts[i]=(L==M+<span class="number">1</span>)?rc[rts[i]]:lc[rts[i]];</span><br><span class="line">    &#125;</span><br><span class="line">    s=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">        s+=getsum(rt[i],<span class="number">0</span>,MX,L+<span class="number">1</span>)*tms[i];</span><br><span class="line">    print(L+<span class="number">1</span>,s);<span class="keyword">return</span> L+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    read(n);read(m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,x;i&lt;=n;i++)</span><br><span class="line">        read(x),Insert(<span class="number">1</span>,<span class="number">1</span>,n,i,i,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">int</span> opt,l,r,lastp=<span class="number">0</span>;LL x;</span><br><span class="line">    <span class="keyword">while</span>(m--)</span><br><span class="line">    &#123;</span><br><span class="line">        read(opt);read(l);read(r);read(x);</span><br><span class="line">        <span class="keyword">if</span>(opt==<span class="number">0</span>) Insert(<span class="number">1</span>,<span class="number">1</span>,n,l,r,x^lastp);</span><br><span class="line">        <span class="keyword">else</span> lastp=gao(l,r,x);</span><br><span class="line">    &#125;</span><br><span class="line">    flush();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2018/09/20/arc072f/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            【ARC072F】Dam
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2018/09/17/agc001e/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【AGC001E】BBQ Hard</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="http://wx3.sinaimg.cn/large/007rnRadgy1g1dmftamhoj30b90bfdpv.jpg" title="头像">
+    <h3 class="avatar-name">
+      
+        Ebola
+      
+    </h3>
+    <p class="avatar-slogan">
+      万物皆可持久化
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2-SAT/">2-SAT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BSGS/">BSGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDQ分治/">CDQ分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS序/">DFS序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Link-Cut-Tree/">Link-Cut-Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lucas定理/">Lucas定理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Tree定理/">Matrix-Tree定理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NP问题/">NP问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/exBSGS/">exBSGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kruskal重构树/">kruskal重构树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中国剩余定理-CRT/">中国剩余定理(CRT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/主席树/">主席树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分/">二分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图/">二分图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图匹配/">二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互题/">交互题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/传递闭包/">传递闭包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凸包/">凸包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分数规划/">分数规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划-DP/">动态规划(DP)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区间DP/">区间DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单位根反演/">单位根反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单调栈/">单调栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卡常/">卡常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原根/">原根</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式合并/">启发式合并</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多重背包/">多重背包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字典树-Trie/">字典树(Trie)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容斥原理/">容斥原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/广度优先搜索-BFS/">广度优先搜索(BFS)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM/">序列自动机(SeAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/异或/">异或</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速数论变换-NTT/">快速数论变换(NTT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速沃尔什变换-FWT/">快速沃尔什变换(FWT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思维题/">思维题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展欧几里得定理-exgcd/">扩展欧几里得定理(exgcd)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扫描线/">扫描线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拉格朗日插值/">拉格朗日插值</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/提答题/">提答题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数论/">数论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/整除分块/">整除分块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最大权闭合子图/">最大权闭合子图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小割/">最小割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小割树-Gomory-Hu-Tree/">最小割树(Gomory-Hu Tree)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路/">最短路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最近公共祖先-LCA/">最近公共祖先(LCA)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/权值线段树/">权值线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/李超线段树/">李超线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造题/">构造题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树上背包/">树上背包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树套树/">树套树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树形DP/">树形DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT/">树状数组(BIT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树链剖分/">树链剖分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率与期望/">概率与期望</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模拟/">模拟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模拟退火/">模拟退火</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比赛题解/">比赛题解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/点分治/">点分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状压DP/">状压DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成函数/">生成函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/矩阵乘法/">矩阵乘法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线性基/">线性基</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线性筛/">线性筛</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树合并/">线段树合并</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组合数学/">组合数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/结论题/">结论题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置换/">置换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/背包/">背包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/莫比乌斯反演/">莫比乌斯反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚树/">虚树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算几何/">计算几何</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/质因数分解/">质因数分解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/费用流/">费用流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随机化/">随机化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高斯消元/">高斯消元</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/9999/01/">January 9999</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/9999/01/01/hello-world/">欢迎来到Ebola的博客！</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/jxoi2017_color_2/">【JXOI2017】颜色（更简单的解法）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/jsoi2019_predict/">【JSOI2019】精确预测</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/26/noi2019_modal55_ha/">【NOI2019模拟赛（五十五）】哈</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/26/noi2019_modal55_lo/">【NOI2019模拟赛（五十五）】喽</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-box">
+    <h3 class="widget-title">Friends</h3>
+    <div class="widget">
+        <ul>
+            <li><a href="https://www.cnblogs.com/OYJason/">OYJason</a></li>
+            <li><a href="https://blog.csdn.net/Mys_C_K/">Mys_C_K</a></li>
+            <li><a href="https://www.cnblogs.com/ywwyww/">ywwyww</a></li>
+            <li><a href="https://www.illyasviel.top/">yxq</a></li>
+            <li><a href="https://rogerdtz.github.io/">RogerDTZ</a></li>
+            <li><a href="http://www.cnblogs.com/yoyoball/">hy</a></li>
+            <li><a href="http://www.cnblogs.com/xiefengze1">xfz</a></li>
+            <li><a href="https://drelf.cn">Drelf</a></li>
+        </ul>
+    </div>
+</div>
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 Ebola &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
