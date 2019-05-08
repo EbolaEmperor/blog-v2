@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>【学习笔记】nim计数与阶梯nim | Ebola的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="昨天打SDOI网络同步赛，花了好几个小时猜出一个牛逼结论，最后被告知就是阶梯nim的结论，然而我听都没听过阶梯nim……于是就有了这篇文章">
+<meta name="keywords" content="博弈论,nim游戏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习笔记】nim计数与阶梯nim">
+<meta property="og:url" content="http://www.ebola.pro/2019/05/08/nim/index.html">
+<meta property="og:site_name" content="Ebola的博客">
+<meta property="og:description" content="昨天打SDOI网络同步赛，花了好几个小时猜出一个牛逼结论，最后被告知就是阶梯nim的结论，然而我听都没听过阶梯nim……于是就有了这篇文章">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-08T02:17:23.300Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【学习笔记】nim计数与阶梯nim">
+<meta name="twitter:description" content="昨天打SDOI网络同步赛，花了好几个小时猜出一个牛逼结论，最后被告知就是阶梯nim的结论，然而我听都没听过阶梯nim……于是就有了这篇文章">
+  
+    <link rel="alternate" href="/atom.xml" title="Ebola的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+
+  <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(http://wx2.sinaimg.cn/large/007rnRadgy1g1dmpggicsj31ee0u0e5a.jpg)" title="背景图片来自wlop">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-nim" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      【学习笔记】nim计数与阶梯nim
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/05/08/nim/" class="article-date">
+  <time datetime="2019-05-07T16:00:00.000Z" itemprop="datePublished">2019-05-08</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nim游戏/">nim游戏</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博弈论/">博弈论</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <p>昨天打SDOI网络同步赛，花了好几个小时猜出一个牛逼结论，最后被告知就是阶梯nim的结论，然而我听都没听过阶梯nim……于是就有了这篇文章</p>
+<a id="more"></a>
+<p>先放个题目链接：<a href="https://vijos.org/contest/5cb88fadf413627f7693f244/2055" target="_blank" rel="noopener">【SDOI2019】移动金币 - Vijos</a></p>
+<hr>
+<h2 id="nim游戏"><a class="markdownIt-Anchor" href="#nim游戏"></a> nim游戏</h2>
+<h3 id="游戏描述"><a class="markdownIt-Anchor" href="#游戏描述"></a> 游戏描述</h3>
+<p>有若干堆石子，每次可以在某一堆中拿走若干个，但不能不拿，拿完最后一个石子的人获胜</p>
+<h3 id="相关结论"><a class="markdownIt-Anchor" href="#相关结论"></a> 相关结论</h3>
+<p>先手必胜，当且仅当所有石子数的异或和非零</p>
+<p>这个应该入门了博弈论的人都会，证明就不写了</p>
+<hr>
+<h2 id="nim游戏计数"><a class="markdownIt-Anchor" href="#nim游戏计数"></a> nim游戏计数</h2>
+<h3 id="问题描述"><a class="markdownIt-Anchor" href="#问题描述"></a> 问题描述</h3>
+<p>求有多少种nim游戏的初始局面，满足：</p>
+<ul>
+<li>一共有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span>堆石子（可以有空堆），所有石子数之和为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span></li>
+<li>先手必胜（N状态）</li>
+</ul>
+<h3 id="解法"><a class="markdownIt-Anchor" href="#解法"></a> 解法</h3>
+<p>考虑统计先手必败（P状态）的方案数。实际上就是把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>个石子放入<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span>个容器，使得所有容器的石子数异或和为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span></span></span></span></p>
+<p>首先<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>为奇数的情况显然不可能异或和为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span></span></span></span>，所以设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>D</mi><mi>k</mi></msub><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">D_k(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>表示<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span>堆石子一共<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">2n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathit">n</span></span></span></span>个的P状态方案数</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">2n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathit">n</span></span></span></span>个石子且每堆石子都是偶数（以下简称“偶堆”，相应的有“奇堆”）的一个P状态，可以被认为是将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>堆石子的某个P状态中每堆石子的数量翻倍，这意味着所有P状态与所有仅包含偶堆的P状态存在双射关系</p>
+<p>现在考虑石子总数为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mi>n</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">4n+2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathrm">2</span></span></span></span>。设奇堆的数量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mi>i</mi><mo>+</mo><mn>2</mn><mo>(</mo><mo>≤</mo><mi>k</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">4i+2(\leq k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span><span class="mord mathit">i</span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mopen">(</span><span class="mrel">≤</span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span>，则选择奇堆的方案有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>k</mi></mrow><mrow><mn>4</mn><mi>i</mi><mo>+</mo><mn>2</mn></mrow></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\binom{k}{4i+2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.9301079999999999em;"></span><span class="strut bottom" style="height:1.3334389999999998em;vertical-align:-0.403331em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">4</span><span class="mord mathit">i</span><span class="mbin">+</span><span class="mord mathrm">2</span></span></span></span><span style="top:-0.44400000000000006em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span>种。我们可以在所有的奇堆中拿走一个石子，然后把所有堆的石子数减半，利用上述双射关系，对于枚举的一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span>，就有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>k</mi></mrow><mrow><mn>4</mn><mi>i</mi><mo>+</mo><mn>2</mn></mrow></mfrac><mo fence="true">)</mo></mrow><msub><mi>D</mi><mi>k</mi></msub><mo>(</mo><mi>n</mi><mo>−</mo><mi>i</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\binom{k}{4i+2}D_k(n-i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.9301079999999999em;"></span><span class="strut bottom" style="height:1.3334389999999998em;vertical-align:-0.403331em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">4</span><span class="mord mathit">i</span><span class="mbin">+</span><span class="mord mathrm">2</span></span></span></span><span style="top:-0.44400000000000006em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathit">i</span><span class="mclose">)</span></span></span></span>种方案</p>
+<p>所以，有：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>D</mi><mi>k</mi></msub><mo>(</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>min</mi><mo>(</mo><mi>n</mi><mo separator="true">,</mo><mrow><mo fence="true">⌊</mo><mfrac><mrow><mi>k</mi></mrow><mrow><mn>4</mn></mrow></mfrac><mo fence="true">⌋</mo></mrow><mo>)</mo></mrow></msubsup><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>k</mi></mrow><mrow><mn>4</mn><mi>i</mi><mo>+</mo><mn>2</mn></mrow></mfrac><mo fence="true">)</mo></mrow><msub><mi>D</mi><mi>k</mi></msub><mo>(</mo><mi>n</mi><mo>−</mo><mi>i</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">D_k(2n+1)=\sum_{i=0}^{\min(n,\left\lfloor\frac{k}{4}\right\rfloor)}\binom{k}{4i+2}D_k(n-i)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:2.2610050000000004em;"></span><span class="strut bottom" style="height:3.5386740000000003em;vertical-align:-1.277669em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathrm">2</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mrel">=</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.4635050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mop">min</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mpunct">,</span><span class="minner scriptstyle uncramped"><span class="style-wrap reset-scriptstyle textstyle uncramped" style="top:0.07500000000000001em;">⌊</span><span class="mord reset-scriptstyle scriptstyle uncramped"><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">4</span></span></span></span><span style="top:-0.22142857142857142em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span></span><span class="style-wrap reset-scriptstyle textstyle uncramped" style="top:0.07500000000000001em;">⌋</span></span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathrm">4</span><span class="mord mathit">i</span><span class="mbin">+</span><span class="mord mathrm">2</span></span></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathit">i</span><span class="mclose">)</span></span></span></span></span></p>
+<p>类似地，有：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>D</mi><mi>k</mi></msub><mo>(</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>2</mn><mo>)</mo><mo>=</mo><msub><mi>D</mi><mi>k</mi></msub><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>−</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>min</mi><mo>(</mo><mi>n</mi><mo separator="true">,</mo><mrow><mo fence="true">⌊</mo><mfrac><mrow><mi>k</mi></mrow><mrow><mn>4</mn></mrow></mfrac><mo fence="true">⌋</mo></mrow><mo>)</mo></mrow></msubsup><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>k</mi></mrow><mrow><mn>4</mn><mo>(</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow></mfrac><mo fence="true">)</mo></mrow><msub><mi>D</mi><mi>k</mi></msub><mo>(</mo><mi>n</mi><mo>−</mo><mi>i</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">D_k(2n+2)=D_k(n+1)-\sum_{i=0}^{\min(n,\left\lfloor\frac{k}{4}\right\rfloor)}\binom{k}{4(i+1)}D_k(n-i)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:2.2610050000000004em;"></span><span class="strut bottom" style="height:3.5386740000000003em;vertical-align:-1.277669em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathrm">2</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mbin">−</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.4635050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mop">min</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mpunct">,</span><span class="minner scriptstyle uncramped"><span class="style-wrap reset-scriptstyle textstyle uncramped" style="top:0.07500000000000001em;">⌊</span><span class="mord reset-scriptstyle scriptstyle uncramped"><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">4</span></span></span></span><span style="top:-0.22142857142857142em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span></span><span class="style-wrap reset-scriptstyle textstyle uncramped" style="top:0.07500000000000001em;">⌋</span></span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathrm">4</span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span><span style="top:-0.6769999999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathit">i</span><span class="mclose">)</span></span></span></span></span></p>
+<p>利用上述式子，可以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nm)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span>求得答案，最后用总的方案数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>n</mi><mo>+</mo><mi>m</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\binom{n+m-1}{m-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.895108em;"></span><span class="strut bottom" style="height:1.2984390000000001em;vertical-align:-0.403331em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">m</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.44400000000000006em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span>去减一下就得到了N状态方案数</p>
+<p>更多nim计数问题，见参考资料：<a href="https://cs.uwaterloo.ca/journals/JIS/VOL17/Khovanova/khova6.pdf" target="_blank" rel="noopener">Nim Fractals, by Tanya Khovanova, Department of Mathematics, MIT</a></p>
+<hr>
+<h2 id="阶梯nim游戏"><a class="markdownIt-Anchor" href="#阶梯nim游戏"></a> 阶梯nim游戏</h2>
+<h3 id="游戏描述-2"><a class="markdownIt-Anchor" href="#游戏描述-2"></a> 游戏描述</h3>
+<p>有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span>堆石子，每次可以进行如下操作之一：</p>
+<ul>
+<li>拿走第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span>堆的若干个石子</li>
+<li>在第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span>堆中拿出若干个石子放入第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span>堆</li>
+</ul>
+<p>拿走最后一个石子的人获胜</p>
+<h3 id="相关结论-2"><a class="markdownIt-Anchor" href="#相关结论-2"></a> 相关结论</h3>
+<p>对于一个初始局面，先手必胜当且仅当编号为奇数的堆石子数异或和非零</p>
+<h3 id="证明"><a class="markdownIt-Anchor" href="#证明"></a> 证明</h3>
+<p>假设两人都移动奇数堆的石子</p>
+<p>对于一个先手必胜局面，先手肯定优先移动奇数堆的若干个石子使得奇数堆石子异或和为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span></span></span></span>从而进入P状态，然后后手萎蛋</p>
+<p>如果后手试图打破规则，移动了偶数堆的若干个石子，那先手就把他移了的那些石子再往左移一堆，那么局面不改变，后手仍处于P状态</p>
+<p>先手必败局面也是类似的证法</p>
+<p>参考资料：<a href="https://www.cnblogs.com/RogerDTZ/p/9439540.html" target="_blank" rel="noopener">阶梯Nim问题, by RogerDTZ</a></p>
+<hr>
+<h2 id="阶梯nim游戏计数"><a class="markdownIt-Anchor" href="#阶梯nim游戏计数"></a> 阶梯nim游戏计数</h2>
+<h3 id="问题描述-2"><a class="markdownIt-Anchor" href="#问题描述-2"></a> 问题描述</h3>
+<p>求有多少种阶梯nim游戏的初始局面，满足：</p>
+<ul>
+<li>一共有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span>堆石子（可以有空堆），所有石子数之和为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span></li>
+<li>先手必胜（N状态）</li>
+</ul>
+<h3 id="解法-2"><a class="markdownIt-Anchor" href="#解法-2"></a> 解法</h3>
+<p>还是考虑统计P状态数量</p>
+<p>首先设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>=</mo><mrow><mo fence="true">⌈</mo><mfrac><mrow><mi>m</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo fence="true">⌉</mo></mrow></mrow><annotation encoding="application/x-tex">k=\left\lceil\frac{m}{2}\right\rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.85em;"></span><span class="strut bottom" style="height:1.20001em;vertical-align:-0.35001em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mrel">=</span><span class="minner textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">⌈</span></span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">m</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">⌉</span></span></span></span></span></span>，即编号为奇数的堆数量</p>
+<p>考虑有多少石子放入奇数堆（一定要放偶数个），多少石子放入偶数堆。放入偶数堆的可以任意，只要做个插板就行。奇数堆的就用nim游戏奇数里的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>D</mi><mi>k</mi></msub><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">D_k(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>。于是得到：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>n</mi><mi>t</mi><mo>(</mo><mi>P</mi><mo>)</mo><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mrow><mo fence="true">⌊</mo><mfrac><mrow><mi>n</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo fence="true">⌋</mo></mrow></mrow></msubsup><msub><mi>D</mi><mi>k</mi></msub><mo>(</mo><mi>i</mi><mo>)</mo><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>n</mi><mo>−</mo><mn>2</mn><mi>i</mi><mo>+</mo><mi>m</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">cnt(P)=\sum_{i=0}^{\left\lfloor\frac{n}{2}\right\rfloor}D_k(i)\binom{n-2i+m-1}{m-1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:2.2610050000000004em;"></span><span class="strut bottom" style="height:3.5386740000000003em;vertical-align:-1.277669em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit">c</span><span class="mord mathit">n</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mclose">)</span><span class="mrel">=</span><span class="mop op-limits"><span class="vlist"><span style="top:1.1776689999999999em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span><span style="top:-0.000005000000000143778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span><span class="op-symbol large-op mop">∑</span></span></span><span style="top:-1.4635050000000003em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="minner scriptstyle uncramped"><span class="style-wrap reset-scriptstyle textstyle uncramped" style="top:0.07500000000000001em;">⌊</span><span class="mord reset-scriptstyle scriptstyle uncramped"><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22142857142857142em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span></span><span class="style-wrap reset-scriptstyle textstyle uncramped" style="top:0.07500000000000001em;">⌋</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02778em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mclose">)</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathit">m</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.6770000000000002em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">2</span><span class="mord mathit">i</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span></span></span></span></p>
+<p>N状态的数量只要用总的数量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>n</mi><mo>+</mo><mi>m</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\binom{n+m-1}{m-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.895108em;"></span><span class="strut bottom" style="height:1.2984390000000001em;vertical-align:-0.403331em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">m</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.44400000000000006em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span>去减一下就好了</p>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/9999/01/01/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            欢迎来到Ebola的博客！
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/05/06/jxoi2017_color_2/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">【JXOI2017】颜色（更简单的解法）</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: '',
+  repo: '',
+  oauth: {
+    client_id: '',
+    client_secret: '',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="http://wx3.sinaimg.cn/large/007rnRadgy1g1dmftamhoj30b90bfdpv.jpg" title="头像">
+    <h3 class="avatar-name">
+      
+        Ebola
+      
+    </h3>
+    <p class="avatar-slogan">
+      万物皆可持久化
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2-SAT/">2-SAT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BSGS/">BSGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDQ分治/">CDQ分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS序/">DFS序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Link-Cut-Tree/">Link-Cut-Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lucas定理/">Lucas定理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Tree定理/">Matrix-Tree定理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NP问题/">NP问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/exBSGS/">exBSGS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kruskal重构树/">kruskal重构树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nim游戏/">nim游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中国剩余定理-CRT/">中国剩余定理(CRT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/主席树/">主席树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分/">二分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图/">二分图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图匹配/">二分图匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互题/">交互题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/传递闭包/">传递闭包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凸包/">凸包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分数规划/">分数规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划-DP/">动态规划(DP)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区间DP/">区间DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单位根反演/">单位根反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单调栈/">单调栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/博弈论/">博弈论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卡常/">卡常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原根/">原根</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀自动机-SAM/">后缀自动机(SAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式合并/">启发式合并</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/回文自动机-PAM/">回文自动机(PAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多重背包/">多重背包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字典树-Trie/">字典树(Trie)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容斥原理/">容斥原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/广度优先搜索-BFS/">广度优先搜索(BFS)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/序列自动机-SeAM/">序列自动机(SeAM)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/异或/">异或</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速数论变换-NTT/">快速数论变换(NTT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速沃尔什变换-FWT/">快速沃尔什变换(FWT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思维题/">思维题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展欧几里得定理-exgcd/">扩展欧几里得定理(exgcd)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扫描线/">扫描线</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拉格朗日插值/">拉格朗日插值</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/提答题/">提答题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数论/">数论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/整除分块/">整除分块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最大权闭合子图/">最大权闭合子图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小割/">最小割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小割树-Gomory-Hu-Tree/">最小割树(Gomory-Hu Tree)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路/">最短路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最近公共祖先-LCA/">最近公共祖先(LCA)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/权值线段树/">权值线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/李超线段树/">李超线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造题/">构造题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树上背包/">树上背包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树套树/">树套树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树形DP/">树形DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组-BIT/">树状数组(BIT)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树链剖分/">树链剖分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率与期望/">概率与期望</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模拟/">模拟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模拟退火/">模拟退火</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比赛题解/">比赛题解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/点分治/">点分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状压DP/">状压DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成函数/">生成函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/矩阵乘法/">矩阵乘法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线性基/">线性基</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线性筛/">线性筛</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树合并/">线段树合并</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组合数学/">组合数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/结论题/">结论题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置换/">置换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/背包/">背包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/莫比乌斯反演/">莫比乌斯反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚树/">虚树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算几何/">计算几何</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/质因数分解/">质因数分解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/费用流/">费用流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随机化/">随机化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高斯消元/">高斯消元</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/9999/01/">January 9999</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/9999/01/01/hello-world/">欢迎来到Ebola的博客！</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/08/nim/">【学习笔记】nim计数与阶梯nim</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/jxoi2017_color_2/">【JXOI2017】颜色（更简单的解法）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/05/jsoi2019_predict/">【JSOI2019】精确预测</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/26/noi2019_modal55_lo/">【NOI2019模拟赛（五十五）】喽</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-box">
+    <h3 class="widget-title">Friends</h3>
+    <div class="widget">
+        <ul>
+            <li><a href="https://www.cnblogs.com/OYJason/">OYJason</a></li>
+            <li><a href="https://blog.csdn.net/Mys_C_K/">Mys_C_K</a></li>
+            <li><a href="https://www.cnblogs.com/ywwyww/">ywwyww</a></li>
+            <li><a href="https://www.illyasviel.top/">yxq</a></li>
+            <li><a href="https://rogerdtz.github.io/">RogerDTZ</a></li>
+            <li><a href="http://www.cnblogs.com/yoyoball/">hy</a></li>
+            <li><a href="http://www.cnblogs.com/xiefengze1">xfz</a></li>
+            <li><a href="https://drelf.cn">Drelf</a></li>
+        </ul>
+    </div>
+</div>
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 Ebola &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
